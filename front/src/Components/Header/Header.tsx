@@ -3,9 +3,10 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Burger from '../Burger/Burger';
 import SearchBar from '../SearchBar/SearchBar';
 import AuthBtn from '../AuthBtn/AuthBtn';
+import MainMenu from '../MainMenu/MainMenu';
+import mainMenuData from './MainMenuData.json';
 
 interface HeaderProps {
     classes: {
@@ -20,8 +21,6 @@ class Header extends Component<HeaderProps> {
             <>
                 <AppBar>
                     <Toolbar>
-                        <Burger/>
-
                         <Typography className={ this.props.classes.grow } color="inherit" variant="headline">
                             My events
                         </Typography>
@@ -33,6 +32,8 @@ class Header extends Component<HeaderProps> {
                 </AppBar>
 
                 <Toolbar className={ this.props.classes.headerShim }/>
+
+                <MainMenu items={ mainMenuData.main_menu }/>
             </>
         )
     }

@@ -33,16 +33,20 @@ interface EventCardProps {
 }
 
 class EventCard extends Component<EventCardProps> {
+  showShareModal() {
+    debugger
+  }
+
   render() {
     const { classes, image, title } = this.props;
 
     return (
       <Card style={this.props.style}>
 
-        <CardMedia className={ classes.media } image={ image.src} title={ image.title }/>
+        <CardMedia className={ classes.media } image={ image.src } title={ image.title }/>
 
         <CardContent>
-          <Typography component="p">{ title }</Typography>
+          <Typography variant={'title'}>{ title }</Typography>
         </CardContent>
 
         <CardActions className={classes.actions} disableActionSpacing>
@@ -51,7 +55,7 @@ class EventCard extends Component<EventCardProps> {
             <FavoriteIcon />
           </IconButton>
 
-          <IconButton aria-label="Поделиться">
+          <IconButton onClick={this.showShareModal} aria-label="Поделиться">
             <ShareIcon />
           </IconButton>
 

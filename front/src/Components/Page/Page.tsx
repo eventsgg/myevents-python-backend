@@ -4,25 +4,29 @@ import Header from '../Header/Header';
 import EventCardTileList from '../EventCardTileList/EventCardTileList';
 
 const styles = theme => ({
-  page: {
+  pageRoot: {
     overflow: 'hidden',
-    marginTop: '30px',
     ...theme.mixins.gutters()
+  },
+  layoutVertMargin: {
+    marginTop: '20px'
   }
 });
 
 interface PageProps {
   classes: {
-    page: string;
+    pageRoot: string;
+    layoutVertMargin: string;
   }
 }
 
 class Page extends Component<PageProps> {
   render() {
+    var { classes } = this.props;
     return (
-      <div className={this.props.classes.page} style={{'textAlign': 'center'}}>
-        <Header></Header>
-        <EventCardTileList></EventCardTileList>
+      <div className={classes.pageRoot}>
+        <Header/>
+        <EventCardTileList mix={classes.layoutVertMargin}/>
       </div>
     );
   }
