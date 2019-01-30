@@ -9,26 +9,31 @@ import AuthBtn from '../AuthBtn/AuthBtn';
 
 interface HeaderProps {
     classes: {
-        grow: string
+        grow: string;
+        headerShim: string;
     }
 }
 
 class Header extends Component<HeaderProps> {
     render() {
         return (
-            <AppBar>
-                <Toolbar>
-                    <Burger/>
+            <>
+                <AppBar>
+                    <Toolbar>
+                        <Burger/>
 
-                    <Typography className={ this.props.classes.grow } color="inherit" variant="headline">
-                        Repost me
-                    </Typography>
+                        <Typography className={ this.props.classes.grow } color="inherit" variant="headline">
+                            My events
+                        </Typography>
 
-                    <SearchBar/>
+                        <SearchBar/>
 
-                    <AuthBtn/>
-                </Toolbar>
-            </AppBar>
+                        <AuthBtn/>
+                    </Toolbar>
+                </AppBar>
+
+                <Toolbar className={ this.props.classes.headerShim }/>
+            </>
         )
     }
 }
@@ -36,5 +41,8 @@ class Header extends Component<HeaderProps> {
 export default withStyles({
     grow: {
         flexGrow: 1
+    },
+    headerShim: {
+        position: 'static'
     }
 })(Header);

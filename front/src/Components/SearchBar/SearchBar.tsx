@@ -8,12 +8,11 @@ interface SearchBarProps {
 
 class SearchBar extends Component<SearchBarProps> {
     render() {
-        console.log(this.props);
         return (
             <TextFileld
                 type="search"
                 variant="outlined"
-                label="Поиск скидок"
+                label="Поиск по сайту"
                 InputLabelProps={{
                     classes: {
                         root: this.props.classes.labelRoot,
