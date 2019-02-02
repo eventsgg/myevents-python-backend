@@ -3,8 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import Page from './Components/Page/Page';
 import * as serviceWorker from './serviceWorker';
+import MobxDevTools from 'mobx-react-devtools';
 
-ReactDOM.render(<Page />, document.getElementById('root'));
+ReactDOM.render((
+    <>
+        <Page />
+        <MobxDevTools />
+    </>
+), document.getElementById('root'));
+        
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

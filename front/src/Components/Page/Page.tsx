@@ -23,6 +23,7 @@ interface PageProps {
 class Page extends Component<PageProps> {
   render() {
     var { classes } = this.props;
+
     return (
       <div className={classes.pageRoot}>
         <Header/>
