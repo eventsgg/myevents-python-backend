@@ -11,4 +11,4 @@ var data = {
 } 
 
 storiesOf('EventCard', module)
-    .add('basic', () => <EventCard image={data.image} title={data.title} />);
+    .add('basic', () => <EventCard shareModalStore={{ open: false }} image={data.image} title={data.title} />);

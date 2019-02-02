@@ -35,6 +35,7 @@ class MainMenu extends Component<MainMenuProps> {
 
 export default withStyles({
     listRoot: {
-        display: 'flex'
+        display: 'flex',
+        overflowX: 'scroll'
     }
 })(MainMenu);

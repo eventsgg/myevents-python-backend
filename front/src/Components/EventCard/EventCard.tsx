@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -30,11 +31,14 @@ interface EventCardProps {
     };
     title: string;
     style?: object;
+    shareModalStore: {
+      open: boolean;
+    }
 }
 
-class EventCard extends Component<EventCardProps> {
+@observer class EventCard extends Component<EventCardProps> {
   showShareModal() {
-    debugger
+    this.props.shareModalStore.open = true;
   }
 
   render() {
@@ -55,7 +59,7 @@ class EventCard extends Component<EventCardProps> {
             <FavoriteIcon />
           </IconButton>
 
-          <IconButton onClick={this.showShareModal} aria-label="Поделиться">
+          <IconButton onClick={this.showShareModal.bind(this)} aria-label="Поделиться">
             <ShareIcon />
           </IconButton>
 
