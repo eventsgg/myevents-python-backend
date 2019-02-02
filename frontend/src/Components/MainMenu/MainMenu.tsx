@@ -11,9 +11,7 @@ interface MenuItem {
 
 interface MainMenuProps {
     items: MenuItem[];
-    classes: {
-        listRoot: string;
-    }
+    classes: any
 }
 
 class MainMenu extends Component<MainMenuProps> {
@@ -33,9 +31,11 @@ class MainMenu extends Component<MainMenuProps> {
     }
 }
 
-export default withStyles({
+export default withStyles(theme => ({
     listRoot: {
         display: 'flex',
-        overflowX: 'scroll'
+        [theme.breakpoints.down('xs')]: {
+            overflowX: 'scroll'
+        }
     }
-})(MainMenu);
+}))(MainMenu);
