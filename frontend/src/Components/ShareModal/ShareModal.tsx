@@ -9,14 +9,14 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 
-interface ShareModalProps {
+interface IShareModalProps {
     shareModalStore: {
         open: boolean;
     }
     classes: any
 }
 
-@observer class ShareModal extends Component<ShareModalProps> {
+@observer class PureShareModal extends Component<IShareModalProps> {
     close() {
         this.props.shareModalStore.open = false;
     }
@@ -50,7 +50,7 @@ interface ShareModalProps {
     }
 }
 
-export default withStyles(theme => ({
+const ShareModal = withStyles(theme => ({
     titleRoot: {
         padding: theme.spacing.unit * 2,
         margin: 0,
@@ -62,4 +62,6 @@ export default withStyles(theme => ({
         top: theme.spacing.unit,
         color: theme.palette.grey[500],
     }
-}))(ShareModal);
+}))(PureShareModal);
+
+export { ShareModal };

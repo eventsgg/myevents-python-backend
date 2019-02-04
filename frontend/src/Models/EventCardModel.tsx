@@ -1,13 +1,11 @@
-interface eventCardImage {
+export interface IEventCardImage {
     src: string;
     title: string;
 }
 
-class EventCardModel {
-    constructor(public image: eventCardImage, public title: string) {
+export class EventCardModel {
+    constructor(public image: IEventCardImage, public title: string) {
         this.image = image;
         this.title = title;
     }
 }
-
-export default EventCardModel;

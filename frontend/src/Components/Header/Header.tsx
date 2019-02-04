@@ -3,19 +3,19 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import SearchBar from '../SearchBar/SearchBar';
-import AuthBtn from '../AuthBtn/AuthBtn';
-import MainMenu from '../MainMenu/MainMenu';
+import { SearchBar } from '../SearchBar/SearchBar';
+import { AuthBtn } from '../AuthBtn/AuthBtn';
+import { MainMenu } from '../MainMenu/MainMenu';
 import mainMenuData from './MainMenuData.json';
 
-interface HeaderProps {
+interface IHeaderProps {
     classes: {
         grow: string;
         headerShim: string;
     }
 }
 
-class Header extends Component<HeaderProps> {
+class PureHeader extends Component<IHeaderProps> {
     render() {
         return (
             <>
@@ -39,11 +39,13 @@ class Header extends Component<HeaderProps> {
     }
 }
 
-export default withStyles({
+const Header = withStyles({
     grow: {
         flexGrow: 1
     },
     headerShim: {
         position: 'static'
     }
-})(Header);
+})(PureHeader);
+
+export { Header };

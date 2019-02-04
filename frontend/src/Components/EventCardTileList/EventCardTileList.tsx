@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import EventCard from '../EventCard/EventCard';
-import EventCardModel from '../../Models/EventCardModel';
-import ShareModal from '../ShareModal/ShareModal';
-import ShareModalStore from '../../Stores/ShareModalStore';
+import { EventCard } from '../EventCard/EventCard';
+import { EventCardModel } from '../../Models/EventCardModel';
 import EventsData from './EventsData.json';
 
-interface EventCardTileListProps {
+interface IEventCardTileListProps {
     mix?: string;
 }
 
-let shareModalstore = new ShareModalStore();
-
-class EventCardTileList extends Component<EventCardTileListProps> {
+class EventCardTileList extends Component<IEventCardTileListProps> {
     render() {
         return (
             <>
@@ -23,23 +19,15 @@ class EventCardTileList extends Component<EventCardTileListProps> {
 
                             return (
                                 <Grid item xs={12} sm={4} md={3} key={i}>
-                                    <EventCard
-                                        image={eventCardModel.image} 
-                                        title={eventCardModel.title} 
-                                        key={i}
-                                        shareModalStore={shareModalstore}
-                                    >
-                                    </EventCard>
+                                    <EventCard image={eventCardModel.image} title={eventCardModel.title} key={i} />
                                 </Grid>
                             )
                         })
                     }
                 </Grid>
-
-                <ShareModal shareModalStore={shareModalstore} />>
             </>
         )
     }
 }
 
-export default EventCardTileList;
+export { EventCardTileList };
