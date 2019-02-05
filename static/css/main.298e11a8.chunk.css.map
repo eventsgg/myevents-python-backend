@@ -1,0 +1,1 @@
+{"version":3,"sources":["/Users/cherninely/reposts-app/frontend/src/Components/Footer/Footer.scss"],"names":[],"mappings":"AAAA,QACI,UAAA,CACA,YAAA,CACA,wBAAyB","file":"main.298e11a8.chunk.css","sourcesContent":[".footer {\n    width: 100%;\n    height: 200px;\n    background-color: #212433;\n}"]}
