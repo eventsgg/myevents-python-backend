@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import EventCard from './EventCard';
+import { EventCard } from './EventCard';
 
 var data = {
     image: {

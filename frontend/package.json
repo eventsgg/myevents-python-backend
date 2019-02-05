@@ -33,7 +33,10 @@
     "analyze": "source-map-explorer build/static/js/main.*"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "./eslintrc.js"
+    ]
   },
   "browserslist": [
     ">0.2%",

@@ -1,27 +1,27 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-interface MenuItem { 
+interface IMenuItem { 
     title: string; 
     url: string; 
 }
 
-interface MainMenuProps {
-    items: MenuItem[];
+interface IMainMenuProps {
+    items: IMenuItem[];
     classes: any
 }
 
-class MainMenu extends Component<MainMenuProps> {
+class PureMainMenu extends Component<IMainMenuProps> {
     render() {
         return (
             <List classes={{ root: this.props.classes.listRoot }}>
                 {
                     this.props.items.map((item, i) => (
                         <ListItem divider={true} button key={i}>
-                            <ListItemText primary={ item.title } />
+                            <ListItemText primary={item.title} />
                         </ListItem>
                     ))
                 }
@@ -31,11 +31,13 @@ class MainMenu extends Component<MainMenuProps> {
     }
 }
 
-export default withStyles(theme => ({
+const MainMenu = withStyles(theme => ({
     listRoot: {
         display: 'flex',
         [theme.breakpoints.down('xs')]: {
             overflowX: 'scroll'
         }
     }
-}))(MainMenu);
+}))(PureMainMenu);
+
+export { MainMenu };

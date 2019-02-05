@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -10,17 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 
-const styles = theme => ({
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  actions: {
-    display: 'flex',
-  }
-});
-
-interface EventCardProps {
+interface IEventCardProps {
     classes: {
         media: string;
         actions: string;
@@ -31,12 +21,11 @@ interface EventCardProps {
     };
     title: string;
     style?: object;
-    shareModalStore: {
-      open: boolean;
-    }
+    shareModalStore?: any
 }
 
-@observer class EventCard extends Component<EventCardProps> {
+@inject('shareModalStore')
+@observer class PureEventCard extends Component<IEventCardProps> {
   showShareModal() {
     this.props.shareModalStore.open = true;
   }
@@ -47,10 +36,10 @@ interface EventCardProps {
     return (
       <Card style={this.props.style}>
 
-        <CardMedia className={ classes.media } image={ image.src } title={ image.title }/>
+        <CardMedia className={classes.media} image={image.src} title={image.title}/>
 
         <CardContent>
-          <Typography variant={'title'}>{ title }</Typography>
+          <Typography variant={'title'}>{title}</Typography>
         </CardContent>
 
         <CardActions className={classes.actions} disableActionSpacing>
@@ -69,4 +58,14 @@ interface EventCardProps {
   }
 }
 
-export default withStyles(styles)(EventCard);
+const EventCard = withStyles(({
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  actions: {
+    display: 'flex',
+  }
+}))(PureEventCard);
+
+export { EventCard };

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextFileld from '@material-ui/core/TextField';
 
-interface SearchBarProps {
+interface ISearchBarProps {
     classes: any
 }
 
-class SearchBar extends Component<SearchBarProps> {
+class PureSearchBar extends Component<ISearchBarProps> {
     render() {
         return (
             <TextFileld
@@ -29,13 +29,12 @@ class SearchBar extends Component<SearchBarProps> {
                         input: this.props.classes.inputRoot
                     }
                 }}
-            >
-            </TextFileld>   
+            />
         )
     }
 }
 
-export default withStyles({
+const SearchBar = withStyles({
     labelRoot: {
         color: 'rgba(255, 255, 255, .65)',
         transform: 'translate(14px, 14px) scale(1)',
@@ -67,4 +66,6 @@ export default withStyles({
     outlinedInputNotched: {},
     outlinedInputDisabled: {},
     outlinedInputError: {}
-})(SearchBar);
+})(PureSearchBar);
+
+export { SearchBar };
