@@ -14,7 +14,7 @@ class EventCardTileList extends Component<IEventCardTileListProps> {
             <>
                 <Grid container spacing={32} className={this.props.mix}>
                     {
-                        EventsData['events'].map((eventData, i) => {
+                        EventsData.events.map((eventData, i) => {
                             let eventCardModel = new EventCardModel(eventData.image, eventData.title);
 
                             return (

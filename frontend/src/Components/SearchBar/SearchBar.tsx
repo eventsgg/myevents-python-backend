@@ -29,8 +29,7 @@ class PureSearchBar extends Component<ISearchBarProps> {
                         input: this.props.classes.inputRoot
                     }
                 }}
-            >
-            </TextFileld>   
+            />
         )
     }
 }

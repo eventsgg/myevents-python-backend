@@ -21,7 +21,7 @@ class PureHeader extends Component<IHeaderProps> {
             <>
                 <AppBar>
                     <Toolbar>
-                        <Typography className={ this.props.classes.grow } color="inherit" variant="headline">
+                        <Typography className={this.props.classes.grow} color="inherit" variant="headline">
                             My events
                         </Typography>
 
@@ -31,9 +31,9 @@ class PureHeader extends Component<IHeaderProps> {
                     </Toolbar>
                 </AppBar>
 
-                <Toolbar className={ this.props.classes.headerShim }/>
+                <Toolbar className={this.props.classes.headerShim}/>
 
-                <MainMenu items={ mainMenuData.main_menu }/>
+                <MainMenu items={mainMenuData.main_menu}/>
             </>
         )
     }

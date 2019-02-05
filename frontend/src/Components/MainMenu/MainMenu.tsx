@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -21,7 +21,7 @@ class PureMainMenu extends Component<IMainMenuProps> {
                 {
                     this.props.items.map((item, i) => (
                         <ListItem divider={true} button key={i}>
-                            <ListItemText primary={ item.title } />
+                            <ListItemText primary={item.title} />
                         </ListItem>
                     ))
                 }

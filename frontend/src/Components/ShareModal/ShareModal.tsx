@@ -23,6 +23,7 @@ interface IShareModalProps {
 
     render() {
         const { classes } = this.props;
+
         return (
             <Dialog
                 open={this.props.shareModalStore.open} 

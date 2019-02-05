@@ -36,10 +36,10 @@ interface IEventCardProps {
     return (
       <Card style={this.props.style}>
 
-        <CardMedia className={ classes.media } image={ image.src } title={ image.title }/>
+        <CardMedia className={classes.media} image={image.src} title={image.title}/>
 
         <CardContent>
-          <Typography variant={'title'}>{ title }</Typography>
+          <Typography variant={'title'}>{title}</Typography>
         </CardContent>
 
         <CardActions className={classes.actions} disableActionSpacing>
