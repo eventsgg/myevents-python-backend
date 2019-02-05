@@ -16,11 +16,13 @@ interface IMainMenuProps {
 
 class PureMainMenu extends Component<IMainMenuProps> {
     render() {
+        const { classes } = this.props;
+
         return (
-            <List classes={{ root: this.props.classes.listRoot }}>
+            <List classes={{root: classes.listRoot}}>
                 {
                     this.props.items.map((item, i) => (
-                        <ListItem divider={true} button key={i}>
+                        <ListItem classes={{root: classes.ListItemRoot}} divider={true} button key={i}>
                             <ListItemText primary={item.title} />
                         </ListItem>
                     ))
@@ -37,6 +39,9 @@ const MainMenu = withStyles(theme => ({
         [theme.breakpoints.down('xs')]: {
             overflowX: 'scroll'
         }
+    },
+    ListItemRoot: {
+        textAlign: 'center'
     }
 }))(PureMainMenu);
 
