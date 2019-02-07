@@ -1,46 +1,65 @@
 import graphene
 from graphene import relay
 from graphene_sqlalchemy import SQLAlchemyConnectionField, SQLAlchemyObjectType, utils
-from models import Department as DepartmentModel
-from models import Employee as EmployeeModel
-from models import Role as RoleModel
+from models import Event as EventModel
+from models import EventMedia as EventMediaModel
+from models import User as UserModel
+from models import UserMedia as UserMediaModel
+from models import Share as ShareModel
+from models import SocialNetwork as SocialNetworkModel
+from models import Address as AddressModel
+from models import City as CityModel
+from models import Country as CountryModel
 
 
-class Department(SQLAlchemyObjectType):
+class Event(SQLAlchemyObjectType):
     class Meta:
-        model = DepartmentModel
-        interfaces = (relay.Node, )
+        model EventModel
+        interfaces = (relay. Node,)
 
-
-class DepartmentConnection(relay.Connection):
+class EventMedia(SQLAlchemyObjectType):
     class Meta:
-        node = Department
+        model EventMediaModel
+        interfaces = (relay. Node,)
 
-
-class Employee(SQLAlchemyObjectType):
+class User(SQLAlchemyObjectType):
     class Meta:
-        model = EmployeeModel
-        interfaces = (relay.Node, )
+        model UserModel
+        interfaces = (relay. Node,)
 
-
-class EmployeeConnection(relay.Connection):
+class UserMedia(SQLAlchemyObjectType):
     class Meta:
-        node = Employee
+        model UserMediaModel
+        interfaces = (relay. Node,)
 
-
-class Role(SQLAlchemyObjectType):
+class Share(SQLAlchemyObjectType):
     class Meta:
-        model = RoleModel
-        interfaces = (relay.Node, )
+        model ShareModel
+        interfaces = (relay. Node,)
 
-
-class RoleConnection(relay.Connection):
+class SocialNetwork(SQLAlchemyObjectType):
     class Meta:
-        node = Role
+        model SocialNetworkModel
+        interfaces = (relay. Node,)
+
+class Address(SQLAlchemyObjectType):
+    class Meta:
+        model AddressModel
+        interfaces = (relay. Node,)
+
+class City(SQLAlchemyObjectType):
+    class Meta:
+        model CityModel
+        interfaces = (relay. Node,)
+
+class Country(SQLAlchemyObjectType):
+    class Meta:
+        model CountryModel
+        interfaces = (relay. Node,)
 
 
-SortEnumEmployee = utils.sort_enum_for_model(EmployeeModel, 'SortEnumEmployee',
-    lambda c, d: c.upper() + ('_ASC' if d else '_DESC'))
+# SortEnumEmployee = utils.sort_enum_for_model(EmployeeModel, 'SortEnumEmployee',
+#     lambda c, d: c.upper() + ('_ASC' if d else '_DESC'))
 
 
 class Query(graphene.ObjectType):
@@ -52,9 +71,7 @@ class Query(graphene.ObjectType):
     #         SortEnumEmployee,
     #         default_value=utils.EnumValue('id_asc', EmployeeModel.id.asc())))
     # Allows sorting over multiple columns, by default over the primary key
-    all_roles = SQLAlchemyConnectionField(RoleConnection)
-    # Disable sorting over this field
-    all_departments = SQLAlchemyConnectionField(DepartmentConnection, sort=None)
+    all_events = SQLAlchemyConnectionField(EventConnection)
 
 
-schema = graphene.Schema(query=Query, types=[Department, Employee, Role])
+schema = graphene.Schema(query=Query, types=[Event, EventMedia, User, UserMedia, Share, SocialNetwork, Address, City, Country])
