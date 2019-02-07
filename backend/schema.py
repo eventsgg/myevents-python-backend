@@ -14,47 +14,47 @@ from models import Country as CountryModel
 
 class Event(SQLAlchemyObjectType):
     class Meta:
-        model EventModel
+        model = EventModel
         interfaces = (relay. Node,)
 
 class EventMedia(SQLAlchemyObjectType):
     class Meta:
-        model EventMediaModel
+        model = EventMediaModel
         interfaces = (relay. Node,)
 
 class User(SQLAlchemyObjectType):
     class Meta:
-        model UserModel
+        model = UserModel
         interfaces = (relay. Node,)
 
 class UserMedia(SQLAlchemyObjectType):
     class Meta:
-        model UserMediaModel
+        model = UserMediaModel
         interfaces = (relay. Node,)
 
 class Share(SQLAlchemyObjectType):
     class Meta:
-        model ShareModel
+        model = ShareModel
         interfaces = (relay. Node,)
 
 class SocialNetwork(SQLAlchemyObjectType):
     class Meta:
-        model SocialNetworkModel
+        model = SocialNetworkModel
         interfaces = (relay. Node,)
 
 class Address(SQLAlchemyObjectType):
     class Meta:
-        model AddressModel
+        model = AddressModel
         interfaces = (relay. Node,)
 
 class City(SQLAlchemyObjectType):
     class Meta:
-        model CityModel
+        model = CityModel
         interfaces = (relay. Node,)
 
 class Country(SQLAlchemyObjectType):
     class Meta:
-        model CountryModel
+        model = CountryModel
         interfaces = (relay. Node,)
 
 
