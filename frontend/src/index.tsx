@@ -1,17 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
 import { Page } from './Components/Page/Page';
 import * as serviceWorker from './serviceWorker';
 import MobxDevTools from 'mobx-react-devtools';
-import { configure } from 'mobx'
-
-configure({enforceActions: 'always'});
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 ReactDOM.render((
     <>
         <Page />
         <MobxDevTools />
+        <CssBaseline />
     </>
 ), document.getElementById('root'));
         

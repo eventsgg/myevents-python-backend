@@ -5,11 +5,13 @@ import { Header } from '../Header/Header';
 import { EventCardTileList } from '../EventCardTileList/EventCardTileList';
 import { ShareModal } from '../ShareModal/ShareModal';
 import { ShareModalStore } from '../../Stores/ShareModalStore';
+import { MainContent } from '../MainContent/MainContent';
+import { Footer } from '../Footer/Footer';
 
 let shareModalStore = new ShareModalStore();
 
 interface IPageProps {
-  classes: any
+  classes: any;
 }
 
 class PurePage extends Component<IPageProps> {
@@ -19,10 +21,17 @@ class PurePage extends Component<IPageProps> {
     return (
       <div className={classes.pageRoot}>
         <Header/>
-        <Provider shareModalStore={shareModalStore}>
-          <EventCardTileList mix={classes.layoutVertMargin} />
-        </Provider>
-        <ShareModal shareModalStore={shareModalStore} />>
+        <MainContent mix={`${classes.layoutVertMargin} ${classes.layoutHorizMargin}`}>
+
+          <Provider shareModalStore={shareModalStore}>
+            <EventCardTileList />
+          </Provider>
+
+          <ShareModal shareModalStore={shareModalStore} />
+
+        </MainContent>
+
+        <Footer mix={classes.layoutVertMargin}/>
       </div>
     );
   }
@@ -30,11 +39,13 @@ class PurePage extends Component<IPageProps> {
 
 const Page = withStyles(theme => ({
   pageRoot: {
-    overflow: 'hidden',
-    ...theme.mixins.gutters()
+    overflow: 'hidden'
   },
   layoutVertMargin: {
-    marginTop: '20px'
+    marginTop: '40px'
+  },
+  layoutHorizMargin: {
+    ...theme.mixins.gutters()
   }
 }))(PurePage);
 
