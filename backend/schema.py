@@ -17,45 +17,81 @@ class Event(SQLAlchemyObjectType):
         model = EventModel
         interfaces = (relay. Node,)
 
+class EventConnection(relay.Connection):
+    class Meta:
+        node = Event
+
 class EventMedia(SQLAlchemyObjectType):
     class Meta:
         model = EventMediaModel
         interfaces = (relay. Node,)
+
+class EventMediaConnection(relay.Connection):
+    class Meta:
+        node = EventMedia
 
 class User(SQLAlchemyObjectType):
     class Meta:
         model = UserModel
         interfaces = (relay. Node,)
 
+class UserConnection(relay.Connection):
+    class Meta:
+        node = User
+
 class UserMedia(SQLAlchemyObjectType):
     class Meta:
         model = UserMediaModel
         interfaces = (relay. Node,)
+
+class UserMediaConnection(relay.Connection):
+    class Meta:
+        node = UserMedia
 
 class Share(SQLAlchemyObjectType):
     class Meta:
         model = ShareModel
         interfaces = (relay. Node,)
 
+class ShareConnection(relay.Connection):
+    class Meta:
+        node = Share
+
 class SocialNetwork(SQLAlchemyObjectType):
     class Meta:
         model = SocialNetworkModel
         interfaces = (relay. Node,)
+
+class SocialNetworkConnection(relay.Connection):
+    class Meta:
+        node = SocialNetwork
 
 class Address(SQLAlchemyObjectType):
     class Meta:
         model = AddressModel
         interfaces = (relay. Node,)
 
+class AddressConnection(relay.Connection):
+    class Meta:
+        node = Address
+
 class City(SQLAlchemyObjectType):
     class Meta:
         model = CityModel
         interfaces = (relay. Node,)
 
+class CityConnection(relay.Connection):
+    class Meta:
+        node = City
+
 class Country(SQLAlchemyObjectType):
     class Meta:
         model = CountryModel
         interfaces = (relay. Node,)
+
+class CountryConnection(relay.Connection):
+    class Meta:
+        node = Country
 
 
 # SortEnumEmployee = utils.sort_enum_for_model(EmployeeModel, 'SortEnumEmployee',
@@ -63,15 +99,20 @@ class Country(SQLAlchemyObjectType):
 
 
 class Query(graphene.ObjectType):
+    events = graphene.List(Event)
+
+    def resolve_event(self, info):
+        query = User.get_query(info)
+        return query.all()
     node = relay.Node.Field()
-    # Allow only single column sorting
-    # all_employees = SQLAlchemyConnectionField(
-    #     EmployeeConnection,
-    #     sort=graphene.Argument(
-    #         SortEnumEmployee,
-    #         default_value=utils.EnumValue('id_asc', EmployeeModel.id.asc())))
-    # Allows sorting over multiple columns, by default over the primary key
-    all_events = SQLAlchemyConnectionField(EventConnection)
+    # # Allow only single column sorting
+    # # all_employees = SQLAlchemyConnectionField(
+    # #     EmployeeConnection,
+    # #     sort=graphene.Argument(
+    # #         SortEnumEmployee,
+    # #         default_value=utils.EnumValue('id_asc', EmployeeModel.id.asc())))
+    # # Allows sorting over multiple columns, by default over the primary key
+    all_events = SQLAlchemyConnectionField(Event)
 
 
 schema = graphene.Schema(query=Query, types=[Event, EventMedia, User, UserMedia, Share, SocialNetwork, Address, City, Country])
