@@ -1,6 +1,5 @@
 module.exports = {
     rules: {
-        indent: [2, 4],
         semi: [2, 'always', { omitLastInOneLineBlock: true }],
         'semi-spacing': [2, { before: false, after: true }],
         'wrap-iife': [2, 'inside'],
@@ -119,7 +118,4 @@ module.exports = {
         'react/style-prop-object': 2,
         'react/void-dom-elements-no-children': 2,
     },
-
-    overrides: [
-    ],
 };
