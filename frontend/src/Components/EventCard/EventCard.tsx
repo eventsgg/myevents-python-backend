@@ -16,8 +16,8 @@ interface IEventCardProps {
         actions: string;
     };
     image: {
-      src: string;
-      title: string;
+        src: string;
+        title: string;
     };
     title: string;
     style?: object;
@@ -26,46 +26,46 @@ interface IEventCardProps {
 
 @inject('shareModalStore')
 @observer class PureEventCard extends Component<IEventCardProps> {
-  showShareModal() {
-    this.props.shareModalStore.open = true;
-  }
+    showShareModal() {
+        this.props.shareModalStore.open = true;
+    }
 
-  render() {
-    const { classes, image, title } = this.props;
+    render() {
+        const { classes, image, title } = this.props;
 
-    return (
-      <Card style={this.props.style}>
+        return (
+            <Card style={this.props.style}>
 
-        <CardMedia className={classes.media} image={image.src} title={image.title}/>
+                <CardMedia className={classes.media} image={image.src} title={image.title} />
 
-        <CardContent>
-          <Typography variant={'title'}>{title}</Typography>
-        </CardContent>
+                <CardContent>
+                    <Typography variant={'title'}>{title}</Typography>
+                </CardContent>
 
-        <CardActions className={classes.actions} disableActionSpacing>
+                <CardActions className={classes.actions} disableActionSpacing>
 
-          <IconButton aria-label="Добавить в избранное">
-            <FavoriteIcon />
-          </IconButton>
+                    <IconButton aria-label="Добавить в избранное">
+                        <FavoriteIcon />
+                    </IconButton>
 
-          <IconButton onClick={this.showShareModal.bind(this)} aria-label="Поделиться">
-            <ShareIcon />
-          </IconButton>
+                    <IconButton onClick={this.showShareModal.bind(this)} aria-label="Поделиться">
+                        <ShareIcon />
+                    </IconButton>
 
-        </CardActions>
-      </Card>
-    );
-  }
+                </CardActions>
+            </Card>
+        );
+    }
 }
 
 const EventCard = withStyles(({
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  actions: {
-    display: 'flex',
-  }
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
+    actions: {
+        display: "flex",
+    }
 }))(PureEventCard);
 
 export { EventCard };
