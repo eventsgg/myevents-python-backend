@@ -5,8 +5,8 @@
   "homepage": "http://eventsgg.github.io/myevents",
   "proxy": "http://127.0.0.1:5000",
   "dependencies": {
-    "@material-ui/core": "^3.6.1",
-    "@material-ui/icons": "^3.0.1",
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
     "@storybook/addon-info": "^4.0.10",
     "@types/jest": "^23.3.10",
     "@types/node": "^10.12.10",
