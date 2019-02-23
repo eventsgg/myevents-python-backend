@@ -19,12 +19,7 @@ class Query(graphene.ObjectType):
 
 
 class CreateEvent(graphene.Mutation):
-    id = graphene.Int()
-    name =  graphene.String()
-    title =  graphene.String()
-    #address_id = graphene.Int()
-    #main_img_media_id =  graphene.Int()
-    #posted_by_user_id = graphene.Int()
+    event = graphene.Field(EventType)
 
     class Arguments:
         name =  graphene.String()
@@ -34,11 +29,7 @@ class CreateEvent(graphene.Mutation):
         event = Event(name=name, title=title)
         event.save()
 
-        return CreateEvent(
-            id=event.id,
-            name=event.name,
-            title=event.title,
-        )
+        return CreateEvent(event=event)
 
 
 class Mutation(graphene.ObjectType):
