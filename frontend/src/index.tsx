@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Page } from './Components/Page/Page';
-import * as serviceWorker from './serviceWorker';
+import { BrowserRouter } from 'react-router-dom';
 import MobxDevTools from 'mobx-react-devtools';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+import * as serviceWorker from './serviceWorker';
+import { Page } from './Components/Page/Page';
+
 ReactDOM.render((
     <>
-        <Page />
+        <BrowserRouter>
+            <Page />
+        </BrowserRouter>
+
         <MobxDevTools />
         <CssBaseline />
     </>
