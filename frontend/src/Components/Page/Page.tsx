@@ -7,9 +7,9 @@ import { Header } from '../Header/Header';
 import { ShareModal } from '../ShareModal/ShareModal';
 import { MainContent } from '../MainContent/MainContent';
 import { Footer } from '../Footer/Footer';
-import { IndexPageContent } from '../IndexPageContent/IndexPageContent';
-import { EventPageContent } from '../EventPageContent/EventPageContent';
-import { NotFoundPageContent } from '../NotFoundPageContent/NotFoundPageContent';
+import { IndexPageContent } from '../PagesContent/Index/Index';
+import { EventPageContent } from '../PagesContent/Event/Event';
+import { NotFoundPageContent } from '../PagesContent/NotFound/NotFound';
 
 import { shareModalStore } from '../../Stores/ShareModalStore';
 
