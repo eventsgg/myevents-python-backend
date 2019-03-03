@@ -10,10 +10,7 @@ interface IEventCardTileListProps {
     mix?: string;
 }
 
-function fetchQuery(
-    operation,
-    variables,
-) {
+function fetchQuery(operation, variables) {
     return fetch('/graphql', {
         method: 'POST',
         headers: {

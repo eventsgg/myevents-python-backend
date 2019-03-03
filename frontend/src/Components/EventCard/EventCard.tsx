@@ -22,6 +22,7 @@ interface IEventCardProps {
         actions: string;
     };
     card: {
+        id: string;
         mainImgMedia: {
             url: string;
             title: string;
@@ -33,6 +34,7 @@ interface IEventCardProps {
 
 const query = graphql`
     fragment EventCard_card on Event {
+        id,
         title,
         mainImgMedia {
             title,
@@ -47,7 +49,7 @@ const query = graphql`
         this.props.shareModalStore.open = true;
     }
 
-    renderLink = linkProps => <Link to="/events/macdonalds" {...linkProps} />;
+    renderLink = linkProps => <Link to={`/deals/${this.props.card.id}`} {...linkProps} />;
 
     render() {
         const { classes, card: { mainImgMedia, title } } = this.props;

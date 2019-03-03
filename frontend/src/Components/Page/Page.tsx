@@ -28,7 +28,7 @@ class PurePage extends Component<IPageProps> {
                     <MainContent mix={`${classes.layoutVertMargin} ${classes.layoutHorizMargin}`}>
                         <Switch>
                             <Route exact path='/' component={IndexPageContent} />
-                            <Route path='/events/:id' component={EventPageContent} />
+                            <Route path='/deals/:id' component={EventPageContent} />
                             <Route component={NotFoundPageContent} />
                         </Switch>
                     </MainContent>
@@ -37,7 +37,6 @@ class PurePage extends Component<IPageProps> {
 
                     <Footer mix={classes.layoutVertMargin} />
                 </div>
-                {/* <EventCardTileList /> */}
             </Provider>
         );
     }
