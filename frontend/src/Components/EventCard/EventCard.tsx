@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import graphql from 'babel-plugin-relay/macro';
 import { fragment } from 'relay-compose';
@@ -16,22 +17,24 @@ import ShareIcon from '@material-ui/icons/Share';
 
 interface IEventCardProps {
     classes: {
+        root: string;
         media: string;
         actions: string;
     };
     card: {
+        id: string;
         mainImgMedia: {
             url: string;
             title: string;
         };
         title: string;
     }
-    style?: object;
     shareModalStore?: any
 }
 
 const query = graphql`
     fragment EventCard_card on Event {
+        id,
         title,
         mainImgMedia {
             title,
@@ -41,15 +44,18 @@ const query = graphql`
 
 @inject('shareModalStore')
 @observer class PureEventCard extends Component<IEventCardProps> {
-    showShareModal() {
+    showShareModal = (e) => {
+        e.preventDefault();
         this.props.shareModalStore.open = true;
     }
+
+    renderLink = linkProps => <Link to={`/deals/${this.props.card.id}`} {...linkProps} />;
 
     render() {
         const { classes, card: { mainImgMedia, title } } = this.props;
 
         return (
-            <Card style={this.props.style}>
+            <Card component={this.renderLink} className={classes.root}>
 
                 <CardMedia className={classes.media} image={mainImgMedia.url} title={mainImgMedia.title} />
 
@@ -63,7 +69,7 @@ const query = graphql`
                         <FavoriteIcon />
                     </IconButton>
 
-                    <IconButton onClick={this.showShareModal.bind(this)} aria-label="Поделиться">
+                    <IconButton onClick={this.showShareModal} aria-label="Поделиться">
                         <ShareIcon />
                     </IconButton>
 
@@ -75,6 +81,10 @@ const query = graphql`
 
 const EventCard = compose(
     withStyles(({
+        root: {
+            display: 'block',
+            textDecoration: 'none'
+        },
         media: {
             height: 0,
             paddingTop: '56.25%', // 16:9

@@ -1,6 +1,6 @@
 import { observable, computed } from 'mobx';
 
-export class ShareModalStore {
+class ShareModalStore {
     @observable private _isOpen: boolean = false;
 
     set open(isOpen: boolean){
@@ -11,3 +11,5 @@ export class ShareModalStore {
         return this._isOpen;
     }
 }
+
+export const shareModalStore = new ShareModalStore();
