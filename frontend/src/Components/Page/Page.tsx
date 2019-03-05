@@ -10,6 +10,7 @@ import { Footer } from '../Footer/Footer';
 import { IndexPageContent } from '../PagesContent/Index/Index';
 import { EventPageContent } from '../PagesContent/Event/Event';
 import { NotFoundPageContent } from '../PagesContent/NotFound/NotFound';
+import networkEnvironment from '../../networkEnvironment';
 
 import { shareModalStore } from '../../Stores/ShareModalStore';
 
@@ -17,12 +18,17 @@ interface IPageProps {
     classes: any;
 }
 
+const globals = {
+    shareModalStore,
+    networkEnvironment: networkEnvironment()
+};
+
 class PurePage extends Component<IPageProps> {
     render() {
         var { classes } = this.props;
 
         return (
-            <Provider shareModalStore={shareModalStore}>
+            <Provider  {...globals}>
                 <div className={classes.pageRoot}>
                     <Header />
                     <MainContent mix={`${classes.layoutVertMargin} ${classes.layoutHorizMargin}`}>

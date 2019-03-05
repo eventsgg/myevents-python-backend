@@ -1,32 +1,15 @@
 import React, { Component } from 'react';
 import { QueryRenderer } from 'react-relay';
-import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 import graphql from "babel-plugin-relay/macro";
+import { inject } from 'mobx-react';
 
 import Grid from '@material-ui/core/Grid';
 import { EventCard } from '../EventCard/EventCard';
 
 interface IEventCardTileListProps {
     mix?: string;
+    networkEnvironment?: any;
 }
-
-function fetchQuery(operation, variables) {
-    return fetch('/graphql', {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            query: operation.text,
-            variables,
-        }),
-    }).then(response => {
-        return response.json();
-    });
-}
-
-const store = new Store(new RecordSource());
-const network = Network.create(fetchQuery);
 
 const query = graphql` query EventCardTileListQuery {
     allEvents {
@@ -38,13 +21,14 @@ const query = graphql` query EventCardTileListQuery {
     }
 }`
 
+@inject('networkEnvironment')
 class PureEventCardTileList extends Component<IEventCardTileListProps> {
     render() {
-        const { mix } = this.props;
+        const { mix, networkEnvironment } = this.props;
 
         return (
             <QueryRenderer
-                environment={new Environment({ network, store })}
+                environment={networkEnvironment}
                 query={query}
                 render={
                     ({ error, props }) => {
