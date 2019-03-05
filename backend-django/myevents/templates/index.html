@@ -4,5 +4,7 @@
 {% if user.is_authenticated %}
 <p>Welcome {{ user.username }} !!!</p>
 {% else %}
-<a href="{% provider_login_url 'facebook' %}">Sign Up</a>
+<li><a href="{% provider_login_url 'instagram' %}">Sign In With Instagram</a></li>
+<li><a href="{% provider_login_url 'facebook' %}">Sign In With Facebook</a></li>
+<li><a href="{% provider_login_url 'vk' %}">Sign In With VK</a></li>
 {% endif %}

@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'allauth', # allauth
     'allauth.account', # allauth
     'allauth.socialaccount', # allauth
+    'allauth.socialaccount.providers.instagram', # allauth
     'allauth.socialaccount.providers.facebook', # allauth
+    'allauth.socialaccount.providers.vk', # allauth
 
     'django_extensions', # for https
 ]

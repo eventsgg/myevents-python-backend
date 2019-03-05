@@ -1,9 +1,10 @@
 import graphene
 from graphene_django import DjangoObjectType
 from .models import Event
+from users.schema import UserType
 
 from graphene import relay
-
+#from allauth.account.decorators import login_required
 
 
 class EventType(DjangoObjectType):
@@ -26,7 +27,15 @@ class CreateEvent(graphene.Mutation):
         title =  graphene.String()
 
     def mutate(self, info, name, title):
-        event = Event(name=name, title=title)
+        user = info.context.user # or None
+        if user.is_anonymous:
+            raise Exception('Not logged in!')
+
+        event = Event(
+            name=name,
+            title=title,
+            posted_by_user_id=user
+        )
         event.save()
 
         return CreateEvent(event=event)
