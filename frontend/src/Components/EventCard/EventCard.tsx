@@ -42,6 +42,20 @@ const query = graphql`
         }
 }`
 
+const styles = {
+    root: {
+        display: 'block',
+        textDecoration: 'none'
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
+    actions: {
+        display: "flex",
+    }
+};
+
 @inject('shareModalStore')
 @observer class PureEventCard extends Component<IEventCardProps> {
     showShareModal = (e) => {
@@ -80,19 +94,7 @@ const query = graphql`
 }
 
 const EventCard = compose(
-    withStyles(({
-        root: {
-            display: 'block',
-            textDecoration: 'none'
-        },
-        media: {
-            height: 0,
-            paddingTop: '56.25%', // 16:9
-        },
-        actions: {
-            display: "flex",
-        }
-    })),
+    withStyles(styles),
     fragment(query)
 )(PureEventCard);
 

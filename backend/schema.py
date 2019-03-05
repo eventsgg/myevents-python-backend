@@ -99,20 +99,9 @@ class CountryConnection(relay.Connection):
 
 
 class Query(graphene.ObjectType):
-    events = graphene.List(Event)
-
-    def resolve_event(self, info):
-        query = User.get_query(info)
-        return query.all()
     node = relay.Node.Field()
-    # # Allow only single column sorting
-    # # all_employees = SQLAlchemyConnectionField(
-    # #     EmployeeConnection,
-    # #     sort=graphene.Argument(
-    # #         SortEnumEmployee,
-    # #         default_value=utils.EnumValue('id_asc', EmployeeModel.id.asc())))
-    # # Allows sorting over multiple columns, by default over the primary key
     all_events = SQLAlchemyConnectionField(Event)
+    event = relay.Node.Field(Event)
 
 
 schema = graphene.Schema(query=Query, types=[Event, EventMedia, User, UserMedia, Share, SocialNetwork, Address, City, Country])

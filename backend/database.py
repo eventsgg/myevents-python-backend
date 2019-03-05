@@ -31,7 +31,7 @@ def init_db():
     count = 0
     while count < 10:
         
-        event = Event(title='Макдональдс', main_img_media=image)
+        event = Event(title='Макдональдс {id}'.format(id=count), main_img_media=image)
         db_session.add(event)
 
         count += 1
