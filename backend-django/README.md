@@ -50,49 +50,6 @@ Now head on over to
 [http://127.0.0.1:8000/graphql](http://127.0.0.1:8000/graphql)
 and run some queries, for example:
 
-```sql
-# Example Event get query
-{
-  events(first: 22) {
-    edges {
-      node {
-        title
-        mainImgMedia {
-          title
-          url
-        }
-      }
-    }
-    pageInfo {
-      startCursor
-      endCursor
-    }
-  }
-}
-```
-
-```sql
-# Example Event creation query
-{
-  events(first: 22) {
-    edges {
-      node {
-        title
-        mainImgMedia {
-          title
-          url
-        }
-      }
-    }
-    pageInfo {
-      startCursor
-      endCursor
-    }
-  }
-}
-```
-
-
 
 ```sql
 # Events query all events example
