@@ -1,8 +1,12 @@
 import React from 'react';
 
-function EventPageContent() {
+import { FullEventDescr } from '../../FullEventDescr/FullEventDescr';
+
+function EventPageContent(props) {
+    const { match } = props;
+
     return (
-        <div>Страница с информацией о событии</div>
+        <FullEventDescr eventId={match.params.id} />
     );
 }
 
