@@ -45,6 +45,7 @@ python manage.py runserver_plus --cert-file /tmp/cert
 
 ```
 
+This version of backend supports signing in with social networks. You can sign in at [https://localhost:8000](https://localhost:8000)
 
 Now head on over to
 [http://127.0.0.1:8000/graphql](http://127.0.0.1:8000/graphql)
