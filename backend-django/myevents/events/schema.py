@@ -1,6 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
-from .models import Event
+from .models import Event, Share
 from users.schema import UserType
 
 from graphene import relay
@@ -13,10 +13,27 @@ class EventType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
+    event = graphene.Field(
+                EventType,
+                id=graphene.Int(),
+                name=graphene.String()
+                )
     events = graphene.List(EventType)
 
     def resolve_events(self, info, **kwargs):
         return Event.objects.all()
+    
+    def resolve_event(self, info, **kwargs):
+        id = kwargs.get('id')
+        name = kwargs.get('name')
+
+        if id is not None:
+            return Event.objects.get(pk=id)
+
+        if name is not None:
+            return Event.objects.get(name=name)
+
+        return None
 
 
 class CreateEvent(graphene.Mutation):
@@ -41,8 +58,33 @@ class CreateEvent(graphene.Mutation):
         return CreateEvent(event=event)
 
 
+class ShareEvent(graphene.Mutation):
+    user = graphene.Field(UserType)
+    event = graphene.Field(EventType)
+
+    class Arguments:
+        event_id = graphene.Int()
+
+    def mutate(self, info, event_id):
+        user = info.context.user
+        if user.is_anonymous:
+            raise Exception('You must be logged to share!')
+
+        event = Event.objects.filter(id=event_id).first()
+        if not event:
+            raise Exception('Invalid Event!')
+
+        Vote.objects.create(
+            user=user,
+            event=event,
+        )
+
+        return ShareEvent(user=user, event=event)
+
+
 class Mutation(graphene.ObjectType):
     create_event = CreateEvent.Field()
+    share_event = ShareEvent.Field()
 
 '''
 class Event(SQLAlchemyObjectType):
