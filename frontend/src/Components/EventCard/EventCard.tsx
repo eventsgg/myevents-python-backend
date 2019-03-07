@@ -15,6 +15,8 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 
+import { IShareModalStore } from '../../Stores/ShareModalStore';
+
 interface IEventCardProps {
     classes: {
         root: string;
@@ -29,7 +31,7 @@ interface IEventCardProps {
         };
         title: string;
     }
-    shareModalStore?: any
+    shareModalStore: IShareModalStore
 }
 
 const query = graphql`

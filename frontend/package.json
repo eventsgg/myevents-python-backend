@@ -15,6 +15,7 @@
     "@types/relay-runtime": "^1.3.8",
     "@types/storybook__react": "^4.0.0",
     "babel-plugin-relay": "^2.0.0-rc.2",
+    "google-map-react": "^1.1.2",
     "graphql": "^14.1.1",
     "graphql-compiler": "^2.0.0-rc.1",
     "mobx": "^5.9.0",
