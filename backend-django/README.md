@@ -1,9 +1,5 @@
-Example Flask+SQLAlchemy Project
+MVP using Django framework
 ================================
-
-This example project demos integration between Graphene, Flask and SQLAlchemy.
-The project contains two models, one named `Department` and another
-named `Employee`.
 
 Getting started
 ---------------
