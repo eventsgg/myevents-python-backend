@@ -36,19 +36,11 @@ class PureEventCardTileList extends Component<IEventCardTileListProps> {
                             return <div>error.message</div>
                         }
 
-                        const { allEvents } = props || {
-                            allEvents: {
-                                edges: new Array(10).fill({
-                                    node: {
-                                        mainImgMedia: {
-                                            url: '',
-                                            title: ''
-                                        },
-                                        title: ''
-                                    }
-                                })
-                            }
-                        };
+                        if (!props) {
+                            return 'loading...';
+                        }
+
+                        const { allEvents } = props;
 
                         return (
                             <Grid container spacing={32} className={mix}>

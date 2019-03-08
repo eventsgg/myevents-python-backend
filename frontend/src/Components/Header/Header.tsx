@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 import { SearchBar } from '../SearchBar/SearchBar';
-import { AuthBtn } from '../AuthBtn/AuthBtn';
+import { AuthUser } from '../AuthUser/AuthUser';
 import { MainMenu } from '../MainMenu/MainMenu';
 import mainMenuData from './MainMenuData.json';
 import './Header.scss';
@@ -30,7 +30,7 @@ class PureHeader extends Component<IHeaderProps> {
 
                         <SearchBar/>
 
-                        <AuthBtn/>
+                        <AuthUser />
                     </Toolbar>
                 </AppBar>
 

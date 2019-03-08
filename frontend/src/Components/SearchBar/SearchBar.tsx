@@ -37,7 +37,7 @@ class PureSearchBar extends Component<ISearchBarProps> {
 const SearchBar = withStyles({
     labelRoot: {
         color: 'rgba(255, 255, 255, .65)',
-        transform: 'translate(14px, 14px) scale(1)',
+        transform: 'translate(11px, 11px) scale(1)',
         '&$labelFocused': {
             color: 'white'
         }
@@ -46,8 +46,8 @@ const SearchBar = withStyles({
 
     inputRoot: {
         color: 'white',
-        paddingTop: '12px',
-        paddingBottom: '12px'
+        paddingTop: '9px',
+        paddingBottom: '9px'
     },
 
     outlinedInputRoot: {

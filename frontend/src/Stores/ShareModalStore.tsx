@@ -1,8 +1,6 @@
 import { observable, computed } from 'mobx';
 
-export interface IShareModalStore {
-    open: boolean;
-}
+import { IShareModalStore } from '../Typings/';
 
 class ShareModalStore implements IShareModalStore {
     @observable private _isOpen: boolean = false;

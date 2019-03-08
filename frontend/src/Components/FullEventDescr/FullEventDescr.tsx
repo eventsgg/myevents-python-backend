@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ShareIcon from '@material-ui/icons/Share';
 
-import { IShareModalStore } from '../../Stores/ShareModalStore';
+import { IShareModalStore } from '../../Typings';
 import { Map } from '../Map/Map';
 
 interface IFullEventDescrProps {

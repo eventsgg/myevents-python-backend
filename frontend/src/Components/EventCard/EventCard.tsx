@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 
-import { IShareModalStore } from '../../Stores/ShareModalStore';
+import { IShareModalStore } from '../../Typings/';
 
 interface IEventCardProps {
     classes: {

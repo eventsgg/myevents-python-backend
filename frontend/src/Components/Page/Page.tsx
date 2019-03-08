@@ -10,17 +10,19 @@ import { Footer } from '../Footer/Footer';
 import { IndexPageContent } from '../PagesContent/Index/Index';
 import { EventPageContent } from '../PagesContent/Event/Event';
 import { NotFoundPageContent } from '../PagesContent/NotFound/NotFound';
-import networkEnvironment from '../../networkEnvironment';
 
+import networkEnvironment from '../../networkEnvironment';
 import { shareModalStore } from '../../Stores/ShareModalStore';
+import { authStore } from '../../Stores/AuthStore';
 
 interface IPageProps {
     classes: any;
 }
 
 const globals = {
+    networkEnvironment: networkEnvironment(),
     shareModalStore,
-    networkEnvironment: networkEnvironment()
+    authStore: authStore,
 };
 
 class PurePage extends Component<IPageProps> {
