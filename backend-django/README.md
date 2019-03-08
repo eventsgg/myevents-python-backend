@@ -14,7 +14,7 @@ whole Graphene repository:
 ```bash
 # Get the example project code
 git clone https://github.com/eventsgg/myevents.git
-cd myevents/backend
+cd myevents/backend-django
 ```
 
 It is good idea (but not required) to create a virtual environment
@@ -27,8 +27,10 @@ to be useful:
 
 ```bash
 # Create a virtualenv in which we can install the dependencies
-virtualenv env
-source env/bin/activate
+virtualenv venv
+
+# This needs to be done every time you want to run server
+source venv/Scripts/activate
 ```
 
 Now we can install our dependencies:
@@ -37,7 +39,19 @@ Now we can install our dependencies:
 pip install -r requirements.txt
 ```
 
-Now the following command will setup the database, and start the server:
+Go to `myevents` dir:
+
+```bash
+cd myevents
+```
+
+Now we need to instantiate Django backend database (for now in SQLite):
+
+```bash
+python manage.py migrate
+```
+
+The following command will start the server:
 
 ```bash
 # This will start a Django server over HTTPS in order to test Facebook login
@@ -48,7 +62,7 @@ python manage.py runserver_plus --cert-file /tmp/cert
 This version of backend supports signing in with social networks. You can sign in at [https://localhost:8000](https://localhost:8000)
 
 Now head on over to
-[http://127.0.0.1:8000/graphql](http://127.0.0.1:8000/graphql)
+[http://localhost:8000/graphql](http://localhost:8000/graphql)
 and run some queries, for example:
 
 
