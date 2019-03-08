@@ -56,7 +56,6 @@ The following command will start the server:
 ```bash
 # This will start a Django server over HTTPS in order to test Facebook login
 python manage.py runserver_plus --cert-file /tmp/cert
-
 ```
 
 This version of backend supports signing in with social networks. You can sign in at [https://localhost:8000](https://localhost:8000)
