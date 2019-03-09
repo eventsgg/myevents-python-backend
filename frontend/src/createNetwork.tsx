@@ -4,7 +4,7 @@ declare global {
     interface Window { data: any; }
 }
 
-export default function networkEnvironment() {
+export function networkEnvironment() {
     function fetchQuery(operation, variables) {
         // Instead of making an actual HTTP request to the API, use
         // hydrated data available during the initial page load.
