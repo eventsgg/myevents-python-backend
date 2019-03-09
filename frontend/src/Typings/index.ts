@@ -13,3 +13,7 @@ export interface IAuthStore {
     isAuthorized: () => boolean;
     userData: IuserData
 }
+
+export interface IPageLoadingStore {
+    loading: boolean;
+}

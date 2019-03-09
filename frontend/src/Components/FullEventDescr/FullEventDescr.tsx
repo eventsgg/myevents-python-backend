@@ -9,13 +9,14 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ShareIcon from '@material-ui/icons/Share';
 
-import { IShareModalStore } from '../../Typings';
+import { IShareModalStore, IPageLoadingStore } from '../../Typings';
 import { Map } from '../Map/Map';
 
 interface IFullEventDescrProps {
     networkEnvironment?: any;
     eventId: string;
     shareModalStore?: IShareModalStore;
+    pageLoadingStore?: IPageLoadingStore;
     classes: {
         vertMargin: string;
     }
@@ -38,7 +39,7 @@ const styles = {
     }
 };
 
-@inject('networkEnvironment', 'shareModalStore')
+@inject('networkEnvironment', 'shareModalStore', 'pageLoadingStore')
 class PureFullEventDescr extends React.PureComponent<IFullEventDescrProps> {
     showShareModal = (e) => {
         e.preventDefault();
@@ -46,7 +47,7 @@ class PureFullEventDescr extends React.PureComponent<IFullEventDescrProps> {
     }
 
     render() {
-        const { networkEnvironment, eventId, classes } = this.props;
+        const { networkEnvironment, eventId, classes, pageLoadingStore } = this.props;
 
         return (
             <QueryRenderer
@@ -62,8 +63,11 @@ class PureFullEventDescr extends React.PureComponent<IFullEventDescrProps> {
                         }
 
                         if (!props) {
-                            return 'loading';
+                            pageLoadingStore!.loading = true;
+                            return null;
                         }
+
+                        pageLoadingStore!.loading = false;
 
                         const { event } = props;
 

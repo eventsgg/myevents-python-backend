@@ -5,10 +5,12 @@ import { inject } from 'mobx-react';
 
 import Grid from '@material-ui/core/Grid';
 import { EventCard } from '../EventCard/EventCard';
+import { IPageLoadingStore } from '../../Typings';
 
 interface IEventCardTileListProps {
     mix?: string;
     networkEnvironment?: any;
+    pageLoadingStore?: IPageLoadingStore;
 }
 
 const query = graphql` query EventCardTileListQuery {
@@ -21,10 +23,10 @@ const query = graphql` query EventCardTileListQuery {
     }
 }`
 
-@inject('networkEnvironment')
+@inject('networkEnvironment', 'pageLoadingStore')
 class PureEventCardTileList extends Component<IEventCardTileListProps> {
     render() {
-        const { mix, networkEnvironment } = this.props;
+        const { mix, networkEnvironment, pageLoadingStore } = this.props;
 
         return (
             <QueryRenderer
@@ -37,8 +39,11 @@ class PureEventCardTileList extends Component<IEventCardTileListProps> {
                         }
 
                         if (!props) {
-                            return 'loading...';
+                            pageLoadingStore!.loading = true;
+                            return null;
                         }
+
+                        pageLoadingStore!.loading = false;
 
                         const { allEvents } = props;
 

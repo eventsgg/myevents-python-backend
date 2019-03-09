@@ -12,9 +12,10 @@ import { EventPageContent } from '../PagesContent/Event/Event';
 import { NotFoundPageContent } from '../PagesContent/NotFound/NotFound';
 import { PageProgress } from '../PageProgress/PageProgress';
 
-import { networkEnvironment } from '../../createNetwork';
+import { networkEnvironment } from '../../createRelay';
 import { shareModalStore } from '../../Stores/ShareModalStore';
 import { authStore } from '../../Stores/AuthStore';
+import { pageLoadingStore } from '../../Stores/PageLoadingStore';
 
 interface IPageProps {
     classes: any;
@@ -23,7 +24,8 @@ interface IPageProps {
 const globals = {
     networkEnvironment,
     shareModalStore,
-    authStore: authStore,
+    authStore,
+    pageLoadingStore,
 };
 
 class PurePage extends React.Component<IPageProps> {
