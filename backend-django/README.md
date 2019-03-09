@@ -68,6 +68,11 @@ query {
     id
     name
     title
+    postedByUserId {
+      username
+      firstName
+      lastName
+    }
   }
 }
 ```
@@ -138,6 +143,40 @@ mutation{
         username
         email
       }
+    }
+  }
+}
+```
+
+```sql
+# Write share to the database
+mutation {
+	shareEvent (eventId: 10) {
+    user {
+      id
+      username
+    }
+    event {
+      title
+      name
+      postedByUserId {
+        username
+      }
+    }
+  }
+}
+```
+
+```sql
+# Query all shares with event and user voted details
+query {
+  shares {
+    id
+    event {
+      title
+    }
+    user {
+      username
     }
   }
 }

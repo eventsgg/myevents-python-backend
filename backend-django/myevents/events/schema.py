@@ -12,6 +12,11 @@ class EventType(DjangoObjectType):
         model = Event
 
 
+class ShareType(DjangoObjectType):
+    class Meta:
+        model = Share
+
+
 class Query(graphene.ObjectType):
     event = graphene.Field(
                 EventType,
@@ -19,6 +24,7 @@ class Query(graphene.ObjectType):
                 name=graphene.String()
                 )
     events = graphene.List(EventType)
+    shares = graphene.List(ShareType)
 
     def resolve_events(self, info, **kwargs):
         return Event.objects.all()
@@ -34,6 +40,9 @@ class Query(graphene.ObjectType):
             return Event.objects.get(name=name)
 
         return None
+
+    def resolve_shares(self, info, **kwargs):
+        return Share.objects.all()
 
 
 class CreateEvent(graphene.Mutation):
@@ -74,7 +83,7 @@ class ShareEvent(graphene.Mutation):
         if not event:
             raise Exception('Invalid Event!')
 
-        Vote.objects.create(
+        Share.objects.create(
             user=user,
             event=event,
         )
