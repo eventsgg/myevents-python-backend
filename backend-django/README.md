@@ -4,6 +4,39 @@ MVP using Django framework
 Getting started
 ---------------
 
+Local deployment Docker
+-----------------------
+
+We need to build Docker image locally first. Then run some initial setup:
+
+```bash
+# Build docker image
+docker build .
+
+# Make initial migrations
+docker-compose run web python ./myevents/manage.py makemigrations --noinput
+docker-compose run web python ./myevents/manage.py migrate --noinput
+
+# Create superuser for Django admin
+docker-compose run web python ./myevents/manage.py createsuperuser
+```
+
+Now you can launch app from image and detach from container:
+
+```bash
+docker-compose up -d --build
+```
+
+In case you need to debug something in docker container, you can always get inside and look around:
+
+```bash
+docker-compose exec web bash
+```
+
+
+Local deployment (without docker)
+---------------------------------
+
 First you'll need to get the source of the project. Do this by cloning the
 whole Graphene repository:
 

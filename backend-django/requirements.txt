@@ -4,3 +4,4 @@ pyOpenSSL
 Django
 graphene_django
 django_extensions
+psycopg2-binary
