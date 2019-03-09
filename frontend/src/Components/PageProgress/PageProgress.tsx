@@ -21,7 +21,7 @@ interface IPageProgressPresenter {
 }
 
 @inject('pageLoadingStore')
-@observer class PageProgressPresenter extends React.PureComponent<IPageProgressPresenter> {
+@observer class PageProgressPresenter extends React.Component<IPageProgressPresenter> {
     render() {
         const { classes, pageLoadingStore } = this.props;
 
