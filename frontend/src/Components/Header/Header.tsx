@@ -11,6 +11,15 @@ import { MainMenu } from '../MainMenu/MainMenu';
 import mainMenuData from './MainMenuData.json';
 import './Header.scss';
 
+const styles = {
+    grow: {
+        flexGrow: 1
+    },
+    headerShim: {
+        position: 'static' as 'static'
+    }
+};
+
 interface IHeaderProps {
     classes: {
         grow: string;
@@ -42,13 +51,6 @@ class PureHeader extends Component<IHeaderProps> {
     }
 }
 
-const Header = withStyles({
-    grow: {
-        flexGrow: 1
-    },
-    headerShim: {
-        position: 'static'
-    }
-})(PureHeader);
+const Header = withStyles(styles)(PureHeader);
 
 export { Header };

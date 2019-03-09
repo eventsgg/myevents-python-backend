@@ -1,9 +1,9 @@
 {
     "main_menu": [
-        { "title": "Рестораны и кафе", "url": "#" },
-        { "title": "Развлечения", "url": "#" },
-        { "title": "Концерты", "url": "#" },
-        { "title": "Красота", "url": "#" },
-        { "title": "Разное", "url": "#" }
+        { "title": "Рестораны и кафе", "id": "cafe" },
+        { "title": "Развлечения", "id": "entertainment" },
+        { "title": "Концерты", "id": "concert" },
+        { "title": "Красота", "id": "beauty" },
+        { "title": "Разное", "id": "other" }
     ]
 }

@@ -40,6 +40,7 @@ class PurePage extends React.Component<IPageProps> {
                     <MainContent mix={`${classes.layoutVertMargin} ${classes.layoutHorizMargin}`}>
                         <Switch>
                             <Route exact path='/' component={IndexPageContent} />
+                            <Route path='/category/:id' component={IndexPageContent} />
                             <Route path='/deals/:id' component={EventPageContent} />
                             <Route component={NotFoundPageContent} />
                         </Switch>

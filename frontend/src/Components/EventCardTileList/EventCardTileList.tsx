@@ -11,10 +11,11 @@ interface IEventCardTileListProps {
     mix?: string;
     networkEnvironment?: any;
     pageLoadingStore?: IPageLoadingStore;
+    category?: string;
 }
 
-const query = graphql` query EventCardTileListQuery {
-    allEvents {
+const query = graphql` query EventCardTileListQuery($limit: Int = 100) {
+    allEvents(first: $limit) {
         edges {
             node {
                 ...EventCard_card
@@ -26,12 +27,20 @@ const query = graphql` query EventCardTileListQuery {
 @inject('networkEnvironment', 'pageLoadingStore')
 class PureEventCardTileList extends Component<IEventCardTileListProps> {
     render() {
-        const { mix, networkEnvironment, pageLoadingStore } = this.props;
+        const {
+            networkEnvironment,
+            pageLoadingStore,
+            category,
+        } = this.props;
 
         return (
             <QueryRenderer
                 environment={networkEnvironment}
                 query={query}
+                variables={{
+                    // TODO: удалить, когда появяться нормальные категории
+                    limit: Boolean(category) ? 2 : 100
+                }}
                 render={
                     ({ error, props }) => {
                         if (error) {
@@ -48,7 +57,7 @@ class PureEventCardTileList extends Component<IEventCardTileListProps> {
                         const { allEvents } = props;
 
                         return (
-                            <Grid container spacing={32} className={mix}>
+                            <Grid container spacing={32}>
                                 {
                                     allEvents.edges.map((event, i) => {
                                         return (
