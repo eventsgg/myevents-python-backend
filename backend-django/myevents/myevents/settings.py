@@ -177,3 +177,5 @@ SOCIALACCOUNT_PROVIDERS = \
         'LOCALE_FUNC': lambda request: 'en_EN',
         'VERIFIED_EMAIL': False,
         'VERSION': 'v2.4'}}
+
+from .local_settings import *
