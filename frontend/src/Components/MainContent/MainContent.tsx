@@ -1,24 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+    root: {
+        minHeight: '600px',
+    }
+};
 
 interface IMainContent {
     mix?: string;
     classes: any;
 }
 
-class PureMainContent extends Component<IMainContent> {
+class PureMainContent extends React.Component<IMainContent> {
     render() {
         const { mix, classes, children } = this.props;
         return (
-            <div className={`${mix} ${classes}`}>{children}</div>
+            <div className={`${mix} ${classes.root}`}>{children}</div>
         );
     }
 }
 
-const MainContent = withStyles(theme => ({
-    root: {
-        ...theme.mixins.gutters()
-    }
-}))(PureMainContent);
+const MainContent = withStyles(styles)(PureMainContent);
 
 export { MainContent };

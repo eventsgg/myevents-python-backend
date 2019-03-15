@@ -2,9 +2,11 @@ import React from 'react'
 
 import { EventCardTileList } from '../../EventCardTileList/EventCardTileList';
 
-function IndexPageContent() {
+function IndexPageContent(props) {
+    const { match } = props;
+
     return (
-      <EventCardTileList />
+      <EventCardTileList category={match.params.id} />
     );
 }
 
