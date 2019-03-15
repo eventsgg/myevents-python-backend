@@ -1,6 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
-from .models import Event, Share
+from .models import Event, Share, EventCategory
 from users.schema import UserType
 
 from graphene import relay

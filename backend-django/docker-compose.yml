@@ -5,6 +5,8 @@ services:
     image: postgres:11.2
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
   web:
     build: .
     command: python /app/myevents/manage.py runserver_plus --cert-file /tmp/cert 0.0.0.0:8000

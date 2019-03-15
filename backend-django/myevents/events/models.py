@@ -17,9 +17,18 @@ class Event(models.Model):
     updated_at = models.DateTimeField(blank=True, null=True)
     name = models.CharField(max_length=150)
     title = models.CharField(max_length=150)
+    # EVENT_CATEGORIES = (
+    #     ("RESTAURANTS_AND_CAFES", "Рестораны и Кафе"),
+    #     ("ENTERTAINMENT", "Развлечения"),
+    #     ("CONCERTS", "Концерты"),
+    #     ("BEAUTY", "Красота"),
+    #     ("OTHER", "Разное"),
+    # )
     category = models.CharField(
         max_length=25,
-        choices=[(tag, tag.value) for tag in EventCategory],
+        #choices=EVENT_CATEGORIES,
+        #default="OTHER",
+        choices=[(tag.name, tag.value) for tag in EventCategory],
         default=EventCategory.OTHER.value
     )
     # TODO: fields with relations
