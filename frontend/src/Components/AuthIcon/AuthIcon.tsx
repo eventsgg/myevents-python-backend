@@ -1,5 +1,7 @@
 import React from 'react';
 import { inject } from 'mobx-react';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Avatar from '@material-ui/core/Avatar';
 import Popper from '@material-ui/core/Popper';
@@ -11,8 +13,22 @@ import Button from '@material-ui/core/Button';
 
 import { IAuthStore } from '../../Typings/';
 
+const styles = {
+    btn: {
+        backgroundColor: 'transparent',
+    },
+    link: {
+        textDecoration: 'none',
+        color: 'inherit',
+    },
+};
+
 interface IAuthIconProps {
-    authStore?: IAuthStore
+    authStore?: IAuthStore;
+    classes: {
+        btn: string;
+        link: string;
+    }
 }
 
 interface IAuthIconState {
@@ -20,7 +36,7 @@ interface IAuthIconState {
 }
 
 @inject('authStore')
-class AuthIcon extends React.PureComponent<IAuthIconProps, IAuthIconState> {
+class AuthIconPresenter extends React.PureComponent<IAuthIconProps, IAuthIconState> {
     protected anchorEl;
 
     constructor(props: IAuthIconProps) {
@@ -51,7 +67,7 @@ class AuthIcon extends React.PureComponent<IAuthIconProps, IAuthIconState> {
 
     render() {
         const { open } = this.state;
-        const { authStore } = this.props;
+        const { authStore, classes } = this.props;
 
         return (
             <>
@@ -59,7 +75,8 @@ class AuthIcon extends React.PureComponent<IAuthIconProps, IAuthIconState> {
                     buttonRef={node => {
                         this.anchorEl = node;
                     }}
-                    style={{ backgroundColor: 'transparent' }}
+                    className={classes.btn}
+                    style={styles.btn}
                     onClick={this.toggleMenu}
                     disableRipple
                     disableTouchRipple
@@ -76,6 +93,9 @@ class AuthIcon extends React.PureComponent<IAuthIconProps, IAuthIconState> {
                             <Paper>
                                 <ClickAwayListener onClickAway={this.closeMenu}>
                                     <MenuList>
+                                        <MenuItem onClick={this.closeMenu}>
+                                            <Link className={classes.link} to="/rewards">Промокоды</Link>
+                                        </MenuItem>
                                         <MenuItem onClick={this.logOut}>Выйти</MenuItem>
                                     </MenuList>
                                 </ClickAwayListener>
@@ -88,5 +108,7 @@ class AuthIcon extends React.PureComponent<IAuthIconProps, IAuthIconState> {
 
     }
 }
+
+const AuthIcon = withStyles(styles)(AuthIconPresenter);
 
 export { AuthIcon };

@@ -9,6 +9,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 const styles = (theme: Theme) => ({
     listRoot: {
         display: 'flex',
+        paddingTop: 0,
         [theme.breakpoints.down('xs')]: {
             overflowX: 'scroll' as 'scroll'
         }

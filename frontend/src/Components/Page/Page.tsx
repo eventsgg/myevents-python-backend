@@ -4,18 +4,32 @@ import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 
 import { Header } from '../Header/Header';
+import { PageProgress } from '../PageProgress/PageProgress';
 import { ShareModal } from '../ShareModal/ShareModal';
 import { MainContent } from '../MainContent/MainContent';
 import { Footer } from '../Footer/Footer';
+
 import { IndexPageContent } from '../PagesContent/Index/Index';
 import { EventPageContent } from '../PagesContent/Event/Event';
+import { RewardsPageContent } from '../PagesContent/Rewards/Rewards';
 import { NotFoundPageContent } from '../PagesContent/NotFound/NotFound';
-import { PageProgress } from '../PageProgress/PageProgress';
 
 import { networkEnvironment } from '../../createRelay';
 import { shareModalStore } from '../../Stores/ShareModalStore';
 import { authStore } from '../../Stores/AuthStore';
 import { pageLoadingStore } from '../../Stores/PageLoadingStore';
+
+const styles = theme => ({
+    pageRoot: {
+        overflow: 'hidden'
+    },
+    layoutVertMargin: {
+        marginTop: '20px'
+    },
+    layoutHorizMargin: {
+        ...theme.mixins.gutters()
+    }
+});
 
 interface IPageProps {
     classes: any;
@@ -41,7 +55,8 @@ class PurePage extends React.Component<IPageProps> {
                         <Switch>
                             <Route exact path='/' component={IndexPageContent} />
                             <Route path='/category/:id' component={IndexPageContent} />
-                            <Route path='/deals/:id' component={EventPageContent} />
+                            <Route path='/event/:id' component={EventPageContent} />
+                            <Route path='/rewards/' component={RewardsPageContent} />
                             <Route component={NotFoundPageContent} />
                         </Switch>
                     </MainContent>
@@ -55,16 +70,6 @@ class PurePage extends React.Component<IPageProps> {
     }
 }
 
-const Page = withStyles(theme => ({
-    pageRoot: {
-        overflow: 'hidden'
-    },
-    layoutVertMargin: {
-        marginTop: '40px'
-    },
-    layoutHorizMargin: {
-        ...theme.mixins.gutters()
-    }
-}))(PurePage);
+const Page = withStyles(styles)(PurePage);
 
 export { Page };

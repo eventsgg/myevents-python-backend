@@ -65,7 +65,7 @@ const styles = {
         this.props.shareModalStore.open = true;
     }
 
-    renderLink = linkProps => <Link to={`/deals/${this.props.card.id}`} {...linkProps} />;
+    renderLink = linkProps => <Link to={`/event/${this.props.card.id}`} {...linkProps} />;
 
     render() {
         const { classes, card: { mainImgMedia, title } } = this.props;
