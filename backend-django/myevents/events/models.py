@@ -29,7 +29,7 @@ class Event(models.Model):
         #choices=EVENT_CATEGORIES,
         #default="OTHER",
         choices=[(tag.name, tag.value) for tag in EventCategory],
-        default=EventCategory.OTHER.value
+        default=EventCategory.OTHER.name
     )
     # TODO: fields with relations
     #address_id = Column(Integer, ForeignKey('address.id'))

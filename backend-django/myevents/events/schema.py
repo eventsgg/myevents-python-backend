@@ -51,8 +51,9 @@ class CreateEvent(graphene.Mutation):
     class Arguments:
         name =  graphene.String()
         title =  graphene.String()
+        category = graphene.String()
 
-    def mutate(self, info, name, title):
+    def mutate(self, info, name, title, category):
         user = info.context.user # or None
         if user.is_anonymous:
             raise Exception('Not logged in!')
@@ -60,6 +61,7 @@ class CreateEvent(graphene.Mutation):
         event = Event(
             name=name,
             title=title,
+            category=category,
             posted_by_user_id=user
         )
         event.save()

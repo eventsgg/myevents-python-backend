@@ -178,4 +178,5 @@ SOCIALACCOUNT_PROVIDERS = \
         'VERIFIED_EMAIL': False,
         'VERSION': 'v2.4'}}
 
-from .local_settings import *
+## For connecting local app instance to remote db container
+# from .local_settings import *
