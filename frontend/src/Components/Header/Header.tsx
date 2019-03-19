@@ -9,7 +9,7 @@ import { SearchBar } from '../SearchBar/SearchBar';
 import { AuthUser } from '../AuthUser/AuthUser';
 import { MainMenu } from '../MainMenu/MainMenu';
 import mainMenuData from './MainMenuData.json';
-import './Header.scss';
+import './Header.css';
 
 const styles = {
     grow: {
