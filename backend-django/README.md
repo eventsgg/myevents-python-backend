@@ -130,6 +130,7 @@ mutation {
   createEvent(
     name: "EvenMore Macdonalds",
     title: "McDss"
+    category: "RESTAURANTS_AND_CAFES"
   ) {
     event {
       id
