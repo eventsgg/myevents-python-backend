@@ -2,16 +2,16 @@ version: '3.6'
 
 services:
   db:
-    restart: always
     image: postgres:11.2
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     ports:
       - 5432:5432
   django:
-    restart: always
-    build: ./backend
-    command: python /app/myevents/manage.py runserver_plus --cert-file /tmp/cert 0.0.0.0:8000
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: "python /app/myevents/manage.py runserver_plus --cert-file /tmp/cert 0.0.0.0:8000"
     container_name: myevents
     ports:
       - 8000:8000
