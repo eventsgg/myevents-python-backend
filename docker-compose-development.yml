@@ -11,7 +11,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    command: "python /app/myevents/manage.py runserver_plus --cert-file /tmp/cert 0.0.0.0:8000"
+    command: python /app/myevents/manage.py runserver_plus --cert-file /tmp/cert 0.0.0.0:8000
     container_name: myevents
     ports:
       - 8000:8000
