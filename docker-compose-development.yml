@@ -8,9 +8,9 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     ports:
       - 5432:5432
-  web:
+  django:
     restart: always
-    build: .
+    build: ./backend
     command: python /app/myevents/manage.py runserver_plus --cert-file /tmp/cert 0.0.0.0:8000
     container_name: myevents
     ports:
