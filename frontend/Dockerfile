@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 
 # install app dependencies
 COPY ["package.json", "package-lock.json*", "./"]
-RUN npm install
+RUN npm install --production --silent
 
 # create build
 COPY . /usr/src/app
