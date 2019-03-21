@@ -76,7 +76,9 @@ class CreateEvent(graphene.Mutation):
         )
         event_media.save()
 
-        event_category = EventCategory.objects.get(name=category)
+        event_category = EventCategory.objects.filter(name=category).first()
+        if not event_category:
+            raise Exception('Such Category does not exist!')
 
         event = Event(
             name=name,
