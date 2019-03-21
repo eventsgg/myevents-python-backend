@@ -101,10 +101,13 @@ query {
     id
     name
     title
+    category
     postedByUserId {
       username
-      firstName
-      lastName
+      lastLogin
+    }
+    mainImgMedia {
+      url
     }
   }
 }
@@ -122,20 +125,35 @@ query {
 }
 ```
 
-
+```sql
+# Getting Event Category names
+query {
+  categories {
+    name
+    nameRu
+  }
+}
+```
 
 ```sql
 # Event creation example
 mutation {
   createEvent(
-    name: "EvenMore Macdonalds",
+    name: "Macdonalds"
     title: "McDss"
-    category: "RESTAURANTS_AND_CAFES"
+    category: "Restaurants and Cafes"
+    url: "https://cdn-images-1.medium.com/max/1600/1*hPUbZhycGqRKCQAjlhRN7w.jpeg"
   ) {
     event {
       id
       name
       title
+      postedByUserId {
+        username
+      }
+      mainImgMedia {
+        url
+      }
     }
   }
 }

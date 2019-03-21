@@ -1,6 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
-from .models import Event, Share, EventCategory
+from .models import Event, Share, EventCategory, EventMedia
 from users.schema import UserType
 
 from graphene import relay
@@ -11,10 +11,18 @@ class EventType(DjangoObjectType):
     class Meta:
         model = Event
 
+class EventCategoryType(DjangoObjectType):
+    class Meta:
+        model = EventCategory
 
 class ShareType(DjangoObjectType):
     class Meta:
         model = Share
+
+
+class EventMediaType(DjangoObjectType):
+    class Meta:
+        model = EventMedia
 
 
 class Query(graphene.ObjectType):
@@ -24,10 +32,14 @@ class Query(graphene.ObjectType):
                 name=graphene.String()
                 )
     events = graphene.List(EventType)
+    categories = graphene.List(EventCategoryType)
     shares = graphene.List(ShareType)
 
     def resolve_events(self, info, **kwargs):
-        return Event.objects.all()
+        return Event.objects.select_related('category').all()
+    
+    def resolve_categories(self, info, **kwargs):
+        return EventCategory.objects.all()
     
     def resolve_event(self, info, **kwargs):
         id = kwargs.get('id')
@@ -51,18 +63,27 @@ class CreateEvent(graphene.Mutation):
     class Arguments:
         name =  graphene.String()
         title =  graphene.String()
-        category = graphene.String()
+        category = graphene.String() #graphene.Enum.from_enum(EventCategory)
+        url = graphene.String()
 
-    def mutate(self, info, name, title, category):
+    def mutate(self, info, name, title, category, url):
         user = info.context.user # or None
         if user.is_anonymous:
             raise Exception('Not logged in!')
 
+        event_media = EventMedia(
+            url=url
+        )
+        event_media.save()
+
+        event_category = EventCategory.objects.get(name=category)
+
         event = Event(
             name=name,
             title=title,
-            category=category,
-            posted_by_user_id=user
+            category=event_category,
+            posted_by_user_id=user,
+            main_img_media=event_media
         )
         event.save()
 

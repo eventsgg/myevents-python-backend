@@ -180,4 +180,4 @@ SOCIALACCOUNT_PROVIDERS = \
         'VERSION': 'v2.4'}}
 
 ## For connecting local app instance to remote db container
-# from .local_settings import *
+from .local_settings import *
