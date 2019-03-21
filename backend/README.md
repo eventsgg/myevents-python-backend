@@ -94,6 +94,9 @@ Now head on over to
 and run some queries, for example:
 
 
+Query examples
+--------------
+
 ```sql
 # Events query all events example
 query {
@@ -131,6 +134,22 @@ query {
   categories {
     name
     nameRu
+  }
+}
+```
+
+```sql
+# Getting all categories and corresponding Events in those categories
+query {
+  categories {
+    name
+    events {
+      name
+      title
+      mainImgMedia {
+        url
+      }
+    }
   }
 }
 ```
