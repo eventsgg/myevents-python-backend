@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import MobxDevTools from 'mobx-react-devtools';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import * as serviceWorker from './serviceWorker';
 import { Page } from './Components/Page/Page';
+
+const isProduction =  process.env.NODE_ENV === 'production';
+const MobxDevTools = !isProduction ? require('mobx-react-devtools').default : () => null;
 
 const renderApp = Component => {
     return ReactDOM.render((
@@ -13,7 +15,6 @@ const renderApp = Component => {
             <BrowserRouter>
                 <Component />
             </BrowserRouter>
-
             <MobxDevTools />
             <CssBaseline />
         </>
@@ -22,7 +23,7 @@ const renderApp = Component => {
 
 renderApp(Page);
 
-if (module.hot) {
+if (!isProduction && module.hot) {
     module.hot.accept('./Components/Page/Page', () => {
       const NextPage = require('./Components/Page/Page').Page;
       renderApp(NextPage);
