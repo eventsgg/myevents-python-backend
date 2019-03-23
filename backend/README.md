@@ -33,6 +33,15 @@ In case you need to debug something in docker container, you can always get insi
 docker-compose exec web bash
 ```
 
+Remote deployment Docker
+------------------------
+
+Dumps GraphQL schema in JSON format
+
+```bash
+python manage.py graphql_schema
+```
+
 
 Local deployment (without docker)
 ---------------------------------
