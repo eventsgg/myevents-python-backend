@@ -208,20 +208,23 @@ mutation {
 
 ```sql
 # Event creation example from logged in user
-mutation{
-  createEvent(
+mutation {
+  createEvent(input: {
     name: "KFC",
-    title: "oh this fine crispy chicken"
-  ) {
-    event{
+    title: "Some nice KFC",
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTi4UH7FsdDVcjtFYlJYUCRiqna50txDDjqmz7vX-NzlhUqx2M",
+    category: "Restaurants and Cafes"
+  }) {
+    event {
       id
-      name
-      createdAt
+			name
       title
-      postedByUserId {
-        id
-        username
-        email
+      category {
+        name
+        nameRu
+      }
+      mainImgMedia {
+        url
       }
     }
   }
@@ -231,9 +234,10 @@ mutation{
 ```sql
 # Write share to the database
 mutation {
-	shareEvent (eventId: 10) {
+	shareEvent (input: {
+    eventId: 73
+  }) {
     user {
-      id
       username
     }
     event {
