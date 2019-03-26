@@ -235,12 +235,13 @@ mutation {
 # Write share to the database
 mutation {
 	shareEvent (input: {
-    eventId: 73
+    eventNodeId: "RXZlbnROb2RlOjM5"
   }) {
     user {
       username
     }
     event {
+      id
       title
       name
       postedByUserId {
