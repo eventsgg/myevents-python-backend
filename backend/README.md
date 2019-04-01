@@ -33,7 +33,7 @@ In case you need to debug something in docker container, you can always get insi
 docker-compose exec web bash
 ```
 
-Remote deployment Docker
+Remote deployment Docker (Digital Ocean)
 ------------------------
 
 Dumps GraphQL schema in JSON format
@@ -42,6 +42,13 @@ Dumps GraphQL schema in JSON format
 python manage.py graphql_schema
 ```
 
+#TODO add instructions on how to connect a dedicated docker machine on DigitalOcean
+
+```bash
+eval $(docker-machine env development)
+
+docker-compose --verbose -f docker-compose-development.yml up -d --build
+```
 
 Local deployment (without docker)
 ---------------------------------
@@ -110,16 +117,21 @@ Query examples
 # Events query all events example
 query {
   events {
-    id
-    name
-    title
-    category
-    postedByUserId {
-      username
-      lastLogin
-    }
-    mainImgMedia {
-      url
+    edges {
+      node {
+        name
+        title
+        category {
+          name
+        }
+        postedByUserId {
+          username
+          lastLogin
+        }
+        mainImgMedia {
+          url
+        }
+      }
     }
   }
 }
