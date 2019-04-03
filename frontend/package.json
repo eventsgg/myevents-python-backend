@@ -5,7 +5,7 @@
   "homepage": "http://eventsgg.github.io/myevents",
   "proxy": "https://157.230.127.115:8000",
   "scripts": {
-    "start": "react-scripts start & npm run relay-compile --watch",
+    "start": "npm run relay-compile --watch & react-scripts start",
     "start-server": "cd ../backend && python3 ./app.py",
     "build": "npm run relay-compile && react-scripts build",
     "relay-compile": "npx relay-compiler --src ./src --schema ../backend/myevents/schema.json --language typescript --extensions js jsx ts tsx --watchman false",

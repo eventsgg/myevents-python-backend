@@ -19,7 +19,7 @@ const createNetworkEnvironment = function networkEnvironment() {
             return Promise.resolve(cachedData);
         }
 
-        return fetch('/graphql', {
+        return fetch('/graphql/', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

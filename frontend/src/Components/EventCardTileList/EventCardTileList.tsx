@@ -54,12 +54,12 @@ class PureEventCardTileList extends Component<IEventCardTileListProps> {
 
                         pageLoadingStore!.loading = false;
 
-                        const { allEvents } = props;
+                        const { events } = props;
 
                         return (
                             <Grid container spacing={32}>
                                 {
-                                    allEvents.edges.map((event, i) => {
+                                    events.edges.map((event, i) => {
                                         return (
                                             <Grid item xs={12} sm={4} md={3} key={i}>
                                                 <EventCard card={event.node} key={i} />
