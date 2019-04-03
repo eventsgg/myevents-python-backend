@@ -27,7 +27,6 @@ interface IEventCardProps {
         id: string;
         mainImgMedia: {
             url: string;
-            title: string;
         };
         title: string;
     }
@@ -35,11 +34,10 @@ interface IEventCardProps {
 }
 
 const query = graphql`
-    fragment EventCard_card on Event {
+    fragment EventCard_card on EventNode {
         id,
         title,
         mainImgMedia {
-            title,
             url
         }
 }`
@@ -73,7 +71,7 @@ const styles = {
         return (
             <Card component={this.renderLink} className={classes.root}>
 
-                <CardMedia className={classes.media} image={mainImgMedia.url} title={mainImgMedia.title} />
+                <CardMedia className={classes.media} image={mainImgMedia.url} />
 
                 <CardContent>
                     <Typography variant={'title'}>{title}</Typography>

@@ -27,7 +27,6 @@ const query = graphql` query FullEventDescrQuery($eventId: ID!) {
         id,
         title,
         mainImgMedia {
-            title,
             url
         }
     }

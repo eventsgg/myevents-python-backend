@@ -15,7 +15,7 @@ interface IEventCardTileListProps {
 }
 
 const query = graphql` query EventCardTileListQuery($limit: Int = 100) {
-    allEvents(first: $limit) {
+    events(first: $limit) {
         edges {
             node {
                 ...EventCard_card
