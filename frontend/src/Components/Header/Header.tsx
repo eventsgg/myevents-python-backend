@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { AuthUser } from '../AuthUser/AuthUser';
 import { MainMenu } from '../MainMenu/MainMenu';
+import { Burger } from '../Burger/Burger';
+import { MainDrawer } from '../MainDrawer/MainDrawer';
 import mainMenuData from './MainMenuData.json';
 import './Header.css';
 
@@ -27,14 +29,48 @@ interface IHeaderProps {
     }
 }
 
-class PureHeader extends Component<IHeaderProps> {
+interface IHeaderState {
+    open: boolean;
+}
+
+class PureHeader extends React.PureComponent<IHeaderProps, IHeaderState> {
+    constructor(props: IHeaderProps) {
+        super(props);
+
+        this.state ={
+            open: false,
+        }
+
+        this.showDrawer = this.showDrawer.bind(this);
+        this.hideDrawer = this.hideDrawer.bind(this);
+    }
+
+    showDrawer() {
+        this.setState({ open: true });
+    }
+
+    hideDrawer() {
+        this.setState({ open: false });
+    }
+
     render() {
+        const { classes } = this.props;
+        const { open } = this.state;
+
         return (
             <>
                 <AppBar>
                     <Toolbar>
-                        <Typography className={this.props.classes.grow} color="inherit" variant="headline">
-                            <Link className="Header-Link" to="/">My events</Link>
+                        {this.renderBurger(this.showDrawer)}
+                        <MainDrawer
+                            open={open}
+                            onOutsideClick={this.hideDrawer}
+                            onMenuClick={this.hideDrawer}
+                        >
+                            {this.renderBurger(this.hideDrawer)}
+                        </MainDrawer>
+                        <Typography className={classes.grow} color="inherit" variant="headline">
+                            <Link className="Header-Link" to="/">My Events</Link>
                         </Typography>
 
                         <SearchBar/>
@@ -48,6 +84,10 @@ class PureHeader extends Component<IHeaderProps> {
                 <MainMenu items={mainMenuData.main_menu}/>
             </>
         )
+    }
+
+    renderBurger(clickCallback: () => void) {
+        return (<Burger onClick={clickCallback} />);
     }
 }
 

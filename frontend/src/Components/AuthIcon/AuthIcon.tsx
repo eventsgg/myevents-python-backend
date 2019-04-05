@@ -1,6 +1,5 @@
 import React from 'react';
 import { inject } from 'mobx-react';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Avatar from '@material-ui/core/Avatar';
@@ -17,17 +16,12 @@ const styles = {
     btn: {
         backgroundColor: 'transparent',
     },
-    link: {
-        textDecoration: 'none',
-        color: 'inherit',
-    },
 };
 
 interface IAuthIconProps {
     authStore?: IAuthStore;
     classes: {
         btn: string;
-        link: string;
     }
 }
 
@@ -93,9 +87,6 @@ class AuthIconPresenter extends React.PureComponent<IAuthIconProps, IAuthIconSta
                             <Paper>
                                 <ClickAwayListener onClickAway={this.closeMenu}>
                                     <MenuList>
-                                        <MenuItem onClick={this.closeMenu}>
-                                            <Link className={classes.link} to="/rewards">Промокоды</Link>
-                                        </MenuItem>
                                         <MenuItem onClick={this.logOut}>Выйти</MenuItem>
                                     </MenuList>
                                 </ClickAwayListener>

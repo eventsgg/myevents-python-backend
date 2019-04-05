@@ -10,10 +10,10 @@ function RewardsPageContent() {
             <Typography variant="h3" paragraph={true}>Промокоды</Typography>
             <Grid container spacing={32}>
                 {
-                    new Array(10).fill(null).map(() => {
+                    new Array(10).fill({ img: qrCodeImage }).map((item, i) => {
                         return (
-                            <Grid item style={{width: '300px', height: '300px'}}>
-                                <img style={{width: '100%', height: '100%'}} src={qrCodeImage} />
+                            <Grid key={i} item style={{width: '300px', height: '300px'}}>
+                                <img style={{width: '100%', height: '100%'}} src={item.img} />
                             </Grid>
                         )
                     })
