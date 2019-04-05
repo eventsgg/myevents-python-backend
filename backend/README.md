@@ -119,6 +119,7 @@ query {
   events {
     edges {
       node {
+        id
         name
         title
         category {
@@ -141,7 +142,7 @@ query {
 ```sql
 # Events query one event by id example
 query {
-  event(id: 3) {
+  event(id: "RXZlbnROb2RlOjM5") {
     id
     name
     title
@@ -153,8 +154,13 @@ query {
 # Getting Event Category names
 query {
   categories {
-    name
-    nameRu
+    edges {
+      node {
+        id
+        name
+        nameRu
+      }
+    }
   }
 }
 ```
@@ -163,12 +169,22 @@ query {
 # Getting all categories and corresponding Events in those categories
 query {
   categories {
-    name
-    events {
-      name
-      title
-      mainImgMedia {
-        url
+    edges {
+      node {
+        id
+        name
+        nameRu
+        events {
+          edges {
+            node {
+              name
+              title
+              mainImgMedia {
+                url
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -268,12 +284,18 @@ mutation {
 # Query all shares with event and user voted details
 query {
   shares {
-    id
-    event {
-      title
-    }
-    user {
-      username
+    edges {
+      node {
+        id
+        createdAt
+        event {
+          id
+          title
+        }
+        user {
+          username
+        }
+      }
     }
   }
 }

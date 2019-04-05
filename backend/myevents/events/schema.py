@@ -1,88 +1,82 @@
 import graphene
+from graphene import relay, ObjectType
 from graphene_django import DjangoObjectType
-from .models import Event, Share, EventCategory, EventMedia
-from users.schema import UserType
+from graphene_django.filter import DjangoFilterConnectionField
+import django_filters
+from .models import Event, Category, Share, EventMedia
+from users.schema import UserType, UserNode
 
 from graphene import relay
 #from allauth.account.decorators import login_required
 
 
-class EventType(DjangoObjectType):
+class EventFilter(django_filters.FilterSet):
     class Meta:
         model = Event
+        fields = ['title', 'name']
 
-class EventCategoryType(DjangoObjectType):
+class EventNode(DjangoObjectType):
     class Meta:
-        model = EventCategory
+        model = Event
+        interfaces = (relay.Node, )
 
-class ShareType(DjangoObjectType):
+
+class CategoryNode(DjangoObjectType):
+    class Meta:
+        model = Category
+        filter_fields = [] # remake to separate filter like EventFilter
+        interfaces = (relay.Node, )
+
+
+class ShareNode(DjangoObjectType):
     class Meta:
         model = Share
+        filter_fields = [] # remake to separate filter like EventFilter
+        interfaces = (relay.Node, )
 
 
-class EventMediaType(DjangoObjectType):
+class EventMediaNode(DjangoObjectType):
     class Meta:
         model = EventMedia
+        interfaces = (relay.Node, )
 
 
 class Query(graphene.ObjectType):
-    event = graphene.Field(
-                EventType,
-                id=graphene.Int(),
-                name=graphene.String()
-                )
-    events = graphene.List(EventType)
-    categories = graphene.List(EventCategoryType)
-    shares = graphene.List(ShareType)
-
-    def resolve_events(self, info, **kwargs):
-        return Event.objects.select_related('category').all()
-    
-    def resolve_categories(self, info, **kwargs):
-        return EventCategory.objects.all()
-    
-    def resolve_event(self, info, **kwargs):
-        id = kwargs.get('id')
-        name = kwargs.get('name')
-
-        if id is not None:
-            return Event.objects.get(pk=id)
-
-        if name is not None:
-            return Event.objects.get(name=name)
-
-        return None
-
-    def resolve_shares(self, info, **kwargs):
-        return Share.objects.all()
+    category = relay.Node.Field(CategoryNode)
+    categories = DjangoFilterConnectionField(CategoryNode)
+    event = relay.Node.Field(EventNode)
+    events = DjangoFilterConnectionField(EventNode, filterset_class=EventFilter)
+    share = relay.Node.Field(ShareNode)
+    shares = DjangoFilterConnectionField(ShareNode)
 
 
-class CreateEvent(graphene.Mutation):
-    event = graphene.Field(EventType)
+class CreateEvent(graphene.relay.ClientIDMutation):
+    event = graphene.Field(EventNode)
 
-    class Arguments:
+    class Input:
         name =  graphene.String()
         title =  graphene.String()
         category = graphene.String() #graphene.Enum.from_enum(EventCategory)
         url = graphene.String()
 
-    def mutate(self, info, name, title, category, url):
+    @classmethod
+    def mutate_and_get_payload(cls, root, info, **input):
         user = info.context.user # or None
         if user.is_anonymous:
             raise Exception('Not logged in!')
 
         event_media = EventMedia(
-            url=url
+            url=input.get('url')
         )
         event_media.save()
 
-        event_category = EventCategory.objects.filter(name=category).first()
+        event_category = Category.objects.filter(name=input.get('category')).first()
         if not event_category:
             raise Exception('Such Category does not exist!')
 
         event = Event(
-            name=name,
-            title=title,
+            name=input.get('name'),
+            title=input.get('title'),
             category=event_category,
             posted_by_user_id=user,
             main_img_media=event_media
@@ -92,18 +86,23 @@ class CreateEvent(graphene.Mutation):
         return CreateEvent(event=event)
 
 
-class ShareEvent(graphene.Mutation):
-    user = graphene.Field(UserType)
-    event = graphene.Field(EventType)
+class ShareEvent(graphene.relay.ClientIDMutation):
+    user = graphene.Field(UserNode)
+    event = graphene.Field(EventNode)
 
-    class Arguments:
-        event_id = graphene.Int()
+    class Input:
+        event_node_id = graphene.String()
 
-    def mutate(self, info, event_id):
+    @classmethod
+    def mutate_and_get_payload(cls, root, info, **input):
         user = info.context.user
         if user.is_anonymous:
             raise Exception('You must be logged to share!')
 
+        node_type, event_id = relay.Node.from_global_id(input.get('event_node_id'))
+        #get_node_from_global_id(info, input.get('event_node_id'), only_type='EventNode')
+        if not node_type == 'EventNode':
+            raise Exception(f'Must receive a EventNode id, received {node_type} instead.')
         event = Event.objects.filter(id=event_id).first()
         if not event:
             raise Exception('Invalid Event!')
@@ -116,155 +115,6 @@ class ShareEvent(graphene.Mutation):
         return ShareEvent(user=user, event=event)
 
 
-class Mutation(graphene.ObjectType):
+class Mutation(graphene.AbstractType):
     create_event = CreateEvent.Field()
     share_event = ShareEvent.Field()
-
-'''
-class Event(SQLAlchemyObjectType):
-    class Meta:
-        model = EventModel
-        interfaces = (relay.Node , )
-
-class EventConnection(relay.Connection):
-    class Meta:
-        node = Event
-
-class EventMedia(SQLAlchemyObjectType):
-    class Meta:
-        model = EventMediaModel
-        interfaces = (relay.Node , )
-
-class EventMediaConnection(relay.Connection):
-    class Meta:
-        node = EventMedia
-
-class User(SQLAlchemyObjectType):
-    class Meta:
-        model = UserModel
-        interfaces = (relay.Node ,)
-
-class UserConnection(relay.Connection):
-    class Meta:
-        node = User
-
-class UserMedia(SQLAlchemyObjectType):
-    class Meta:
-        model = UserMediaModel
-        interfaces = (relay.Node ,)
-
-class UserMediaConnection(relay.Connection):
-    class Meta:
-        node = UserMedia
-
-class Share(SQLAlchemyObjectType):
-    class Meta:
-        model = ShareModel
-        interfaces = (relay.Node ,)
-
-class ShareConnection(relay.Connection):
-    class Meta:
-        node = Share
-
-class SocialNetwork(SQLAlchemyObjectType):
-    class Meta:
-        model = SocialNetworkModel
-        interfaces = (relay.Node ,)
-
-class SocialNetworkConnection(relay.Connection):
-    class Meta:
-        node = SocialNetwork
-
-class Address(SQLAlchemyObjectType):
-    class Meta:
-        model = AddressModel
-        interfaces = (relay.Node ,)
-
-class AddressConnection(relay.Connection):
-    class Meta:
-        node = Address
-
-class City(SQLAlchemyObjectType):
-    class Meta:
-        model = CityModel
-        interfaces = (relay.Node ,)
-
-class CityConnection(relay.Connection):
-    class Meta:
-        node = City
-
-class Country(SQLAlchemyObjectType):
-    class Meta:
-        model = CountryModel
-        interfaces = (relay.Node ,)
-
-class CountryConnection(relay.Connection):
-    class Meta:
-        node = Country
-
-
-# SortEnumEmployee = utils.sort_enum_for_model(EmployeeModel, 'SortEnumEmployee',
-#     lambda c, d: c.upper() + ('_ASC' if d else '_DESC'))
-
-
-class Query(graphene.ObjectType):
-    event = relay.Node.Field(Event)
-    #events = SQLAlchemyConnectionField(Event)
-    #events = graphene.List(Event)
-
-    # def resolve_events(self, info, **kwargs):
-    #     query = User.get_query(info)
-    #     return query.all()
-
-    # def resolve_event(self, info):
-    #     query = User.get_query(info)
-    #     return query.all()
-    # # Allow only single column sorting
-    # # all_employees = SQLAlchemyConnectionField(
-    # #     EmployeeConnection,
-    # #     sort=graphene.Argument(
-    # #         SortEnumEmployee,
-    # #         default_value=utils.EnumValue('id_asc', EmployeeModel.id.asc())))
-    # # Allows sorting over multiple columns, by default over the primary key
-    events = SQLAlchemyConnectionField(Event)
-
-
-class CreateEvent(graphene.Mutation):
-    class Input:
-        name =  graphene.String()
-        title =  graphene.String()
-        address_id = graphene.Int()
-        main_img_media_id =  graphene.Int()
-        posted_by_user_id = graphene.Int()
-
-    event = graphene.Field(lambda: Event)
-    ok = graphene.Boolean()
-
-    @classmethod
-    def mutate(self, info, **kwargs):
-        #user = info.context.user or None
-
-        event = Event(
-            # name = args.get('name'),
-            # title = args.get('title'),
-            # address_id = args.get('address_id'),
-            # main_img_media_id = args.get('main_img_media_id'),
-            name = name,
-            title = title,
-            address_id = address_id,
-            main_img_media_id = main_img_media_id,
-            #posted_by = graphene.Field(Users),
-        )
-        db_session.add(event)
-        db_session.commit()
-        ok = True
-
-        return CreateEvent(event=event, ok=ok)
-
-
-class Mutation(graphene.ObjectType):
-    create_event = CreateEvent.Field()
-
-
-schema = graphene.Schema(query=Query, mutation=Mutation, types=[Event, EventMedia, User, UserMedia, Share, SocialNetwork, Address, City, Country])
-'''

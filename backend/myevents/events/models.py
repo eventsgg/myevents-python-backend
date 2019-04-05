@@ -4,7 +4,7 @@ from django.conf import settings
 # from enum import Enum
 
 
-# class EventCategory(Enum):   # A subclass of Enum
+# class Category(Enum):   # A subclass of Enum
 #     RESTAURANTS_AND_CAFES = "Рестораны и Кафе"
 #     ENTERTAINMENT = "Развлечения"
 #     CONCERTS = "Концерты"
@@ -12,7 +12,7 @@ from django.conf import settings
 #     OTHER = "Разное"
 
 
-class EventCategory(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=100)
     name_ru = models.CharField(max_length=100)
 
@@ -54,7 +54,7 @@ class Event(models.Model):
 
     ## Categories defined in a table
 
-    category = models.ForeignKey(EventCategory, related_name='events', on_delete=models.CASCADE) 
+    category = models.ForeignKey(Category, related_name='events', on_delete=models.CASCADE) 
 
     # TODO: fields with relations
     #address_id = Column(Integer, ForeignKey('address.id'))

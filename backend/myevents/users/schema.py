@@ -3,7 +3,9 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 import graphene
+from graphene import relay
 from graphene_django import DjangoObjectType
+from graphene_django.filter import DjangoFilterConnectionField
 
 from django.contrib.auth import get_user_model
 
@@ -12,20 +14,31 @@ class UserType(DjangoObjectType):
     class Meta:
         model = get_user_model()
 
+class UserNode(DjangoObjectType):
+    class Meta:
+        model = get_user_model()
+        filter_fields = []
+        interfaces = (relay.Node, )
+
+
+# class Query(graphene.ObjectType):
+#     me = graphene.Field(UserType)
+#     users = graphene.List(UserType)
+
+#     def resolve_users(self, info):
+#         return get_user_model().objects.all()
+
+#     def resolve_me(self, info):
+#         user = info.context.user
+#         if user.is_anonymous:
+#             raise Exception('Not logged in!')
+
+#         return user
+
 
 class Query(graphene.ObjectType):
-    me = graphene.Field(UserType)
-    users = graphene.List(UserType)
-
-    def resolve_users(self, info):
-        return get_user_model().objects.all()
-
-    def resolve_me(self, info):
-        user = info.context.user
-        if user.is_anonymous:
-            raise Exception('Not logged in!')
-
-        return user
+    user = relay.Node.Field(UserNode)
+    users = DjangoFilterConnectionField(UserNode)
 
 
 class CreateUser(graphene.Mutation):
