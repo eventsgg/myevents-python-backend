@@ -1,2 +1,7 @@
-flask-graphql==2.0.0
-graphene-sqlalchemy==2.1.0
+django-allauth
+Werkzeug
+pyOpenSSL
+Django
+graphene_django
+django_extensions
+psycopg2-binary
