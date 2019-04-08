@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://eventsgg.github.io/myevents",
+  "homepage": "http://eventsgg.github.io",
   "proxy": "https://157.230.127.115:8000",
   "scripts": {
     "start": "npm run relay-compile --watch & react-scripts start",

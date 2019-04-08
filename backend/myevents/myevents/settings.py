@@ -14,6 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = ''
 
 
 # Quick-start development settings - unsuitable for production
@@ -66,7 +67,7 @@ ROOT_URLCONF = 'myevents.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [ROOT_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -181,3 +182,7 @@ SOCIALACCOUNT_PROVIDERS = \
 
 ## For connecting local app instance to remote db container
 #from .local_settings import *
+
+STATICFILES_DIRS = [
+    os.path.join(ROOT_DIR, "static")
+]

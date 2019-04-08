@@ -1,0 +1,46 @@
+###########
+# BUILDER #
+###########
+
+# base image
+FROM node:10.13 as builder
+
+RUN mkdir -p /usr/src/frontend
+RUN mkdir -p /usr/src/backend/myevents
+
+# set working directory
+WORKDIR /usr/src/frontend
+
+# install frontend dependencies
+COPY ["./frontend/package.json", "./frontend/package-lock.json*", "./"]
+RUN npm install --production --silent
+
+# create build
+COPY ./frontend/ /usr/src/frontend
+COPY ./backend/myevents/schema.json /usr/src/backend/myevents
+RUN npm run build
+
+
+
+#########
+# FINAL #
+#########
+
+# Pull base image
+FROM python:3.7-slim
+
+# Set environment varibles
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set work directory
+WORKDIR /app
+
+# Copy project
+COPY ./backend/ /app/
+
+# Install dependencies
+RUN pip install -r requirements.txt
+
+# copy static files
+COPY --from=builder /usr/src/frontend/build /app

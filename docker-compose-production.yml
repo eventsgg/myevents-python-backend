@@ -7,16 +7,23 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     ports:
       - 5432:5432
+  
   django:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: Dockerfile-production
     command: python /app/myevents/manage.py runserver_plus --cert-file /tmp/cert 0.0.0.0:8000
     container_name: myevents
     ports:
       - 8000:8000
     depends_on:
       - db
+  
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   command: npm run start
 
 volumes:
   postgres_data:
