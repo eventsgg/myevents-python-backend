@@ -47,7 +47,7 @@ python manage.py graphql_schema
 ```bash
 eval $(docker-machine env development)
 
-docker-compose --verbose -f docker-compose-development.yml up -d --build
+docker-compose --verbose -f docker-compose-production.yml up -d --build
 ```
 
 Local deployment (without docker)
