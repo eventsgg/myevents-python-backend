@@ -13,6 +13,8 @@ import { IndexPageContent } from '../PagesContent/Index/Index';
 import { EventPageContent } from '../PagesContent/Event/Event';
 import { RewardsPageContent } from '../PagesContent/Rewards/Rewards';
 import { NotFoundPageContent } from '../PagesContent/NotFound/NotFound';
+import { Events as PartnerEvents } from '../PagesContent/Partner/Events/Events';
+import { Companies as PartnerCompanies } from '../PagesContent/Partner/Companies/Companies';
 
 import { networkEnvironment } from '../../createRelay';
 import { shareModalStore } from '../../Stores/ShareModalStore';
@@ -57,6 +59,8 @@ class PurePage extends React.Component<IPageProps> {
                             <Route path='/category/:id' component={IndexPageContent} />
                             <Route path='/event/:id' component={EventPageContent} />
                             <Route path='/rewards/' component={RewardsPageContent} />
+                            <Route path='/partner/events/' component={PartnerEvents} />
+                            <Route path='/partner/companies/' component={PartnerCompanies} />
                             <Route component={NotFoundPageContent} />
                         </Switch>
                     </MainContent>
