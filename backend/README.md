@@ -34,13 +34,43 @@ docker-compose exec web bash
 ```
 
 Remote deployment Docker (Digital Ocean)
-------------------------
+----------------------------------------
 
 Dumps GraphQL schema in JSON format
+
+#TODO put in Dockerfile (?)
 
 ```bash
 python manage.py graphql_schema
 ```
+
+```bash
+# get local env
+eval $(docker-machine env default)
+
+# create image locally
+docker-compose -f docker-compose-production.yml build
+
+# save image
+docker save -o img.tar eventsgg_django
+
+# load image to DO machine
+scp img.tar root@157.230.127.115:/root
+
+# stop running containers
+docker-compose -f docker-compose-production.yml down
+
+# ssh to DO machine and load image to docker
+ssh root@157.230.127.115
+docker load -i img.tar
+
+# fire up remote image from your local machine
+eval $(docker-machine env development)
+docker-compose -f docker-compose-production.yml up -d
+```
+
+SKIP INSTRUCTIONS BELOW
+===================================================================================
 
 #TODO add instructions on how to connect a dedicated docker machine on DigitalOcean
 
