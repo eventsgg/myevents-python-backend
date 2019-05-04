@@ -57,15 +57,16 @@ docker save -o img.tar eventsgg_django
 # load image to DO machine
 scp img.tar root@157.230.127.115:/root
 
-# stop running containers
+# stop running containers on remote machine
+eval $(docker-machine env development)
 docker-compose -f docker-compose-production.yml down
 
 # ssh to DO machine and load image to docker
 ssh root@157.230.127.115
 docker load -i img.tar
+exit
 
 # fire up remote image from your local machine
-eval $(docker-machine env development)
 docker-compose -f docker-compose-production.yml up -d
 ```
 
