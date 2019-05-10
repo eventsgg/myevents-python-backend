@@ -34,7 +34,7 @@ interface IAuthModalState {
         super(props);
 
         this.state = {
-            selectedTabIndex: 1
+            selectedTabIndex: 0
         }
 
         this.handleClose = this.handleClose.bind(this);
