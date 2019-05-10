@@ -2,6 +2,10 @@ export interface IShareModalStore {
     open: boolean;
 }
 
+export interface IAuthModalStore {
+    open: boolean;
+}
+
 export interface IuserData {
     name?: string;
     pic?: string;
