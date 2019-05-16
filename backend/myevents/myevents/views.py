@@ -8,6 +8,16 @@ SOCIAL_URLS = [
     '/accounts/vk/login/?process=login'
     ]
 
+## Non-working dynamic URL invocation
+# import allauth.socialaccount
+
+# pl = allauth.socialaccount.providers.registry.get_list()
+
+# SOCIAL_URLS = []
+
+# for i in pl:
+#     SOCIAL_URLS.append(i.get_login_url(i.request, process='login'))
+
 class Index(TemplateView):
     template_name = 'index.html'
 
