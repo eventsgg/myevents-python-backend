@@ -78,7 +78,7 @@ class PureFullEventDescr extends React.PureComponent<IFullEventDescrProps> {
                                 </Typography>
                                 <Grid className={classes.vertMargin} container spacing={32}>
                                     <Grid item>
-                                        <img style={{width: '100%', height: '100%'}} src={event.mainImgMedia.url} />
+                                        <img style={{width: '100%', height: '100%'}} src={event.mainImgMedia.url} alt={event.title} />
                                     </Grid>
                                     <Grid item>
                                         <Button onClick={this.showShareModal} variant="contained" size="large" color="primary">

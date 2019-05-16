@@ -1,5 +1,7 @@
 {
     "left_menu": [
-        { "title": "Промокоды", "url": "/rewards" }
+        { "id": "partner-companies", "title": "Мои заведения", "url": "/partner/companies" },
+        { "id": "partner-events", "title": "Мои акции", "url": "/partner/events" },
+        { "id": "rewards", "title": "Промокоды", "url": "/rewards" }
     ]
 }

@@ -9,9 +9,17 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import Codeicon from '@material-ui/icons/Code';
+import CodeIcon from '@material-ui/icons/Code';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import EventIcon from '@material-ui/icons/Event';
 
 import menuList from './menuList.json';
+
+const iconsConfig = {
+    "rewards": CodeIcon,
+    "partner-companies": MeetingRoomIcon,
+    "partner-events": EventIcon,
+};
 
 const styles = {
     link: {
@@ -47,7 +55,7 @@ const MainDrawerPresenter = React.memo(function MainDrawer(props: IMainDrawerPro
     const { open, onOutsideClick, onMenuClick, classes } = props;
 
     return (
-        <Drawer open={open} ModalProps={{ onBackdropClick: onOutsideClick}}>
+        <Drawer open={open} ModalProps={{ onBackdropClick: onOutsideClick }}>
             <div>
                 {props.children}
                 <Typography variant="headline" className={classes.menuHeading}>Меню</Typography>
@@ -55,24 +63,31 @@ const MainDrawerPresenter = React.memo(function MainDrawer(props: IMainDrawerPro
             <Divider />
             <List className={classes.list}>
                 {
-                    menuList.left_menu.map(menuItem => (
-                        <Link
-                            onClick={onMenuClick}
-                            className={classes.link}
-                            to={menuItem.url}
-                            key={menuItem.title}
-                        >
-                            <ListItem button>
-                                <ListItemIcon>
-                                    <Codeicon />
-                                </ListItemIcon>
-                                <ListItemText className={classes.listText}>
-                                    {menuItem.title}
-                                </ListItemText>
-                            </ListItem>
-                        </Link>
-        ))
-    }
+                    menuList.left_menu.map(menuItem => {
+                        let MenuIcon = iconsConfig[menuItem.id];
+                        return (
+                            <Link
+                                onClick={onMenuClick}
+                                className={classes.link}
+                                to={menuItem.url}
+                                key={menuItem.id}
+                            >
+                                <ListItem button>
+                                    {
+                                        MenuIcon ? (
+                                            <ListItemIcon>
+                                                <MenuIcon />
+                                            </ListItemIcon>
+                                        ) : null
+                                    }
+                                    <ListItemText className={classes.listText}>
+                                        {menuItem.title}
+                                    </ListItemText>
+                                </ListItem>
+                            </Link>
+                        )
+                    })
+                }
             </List>
         </Drawer>
     );

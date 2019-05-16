@@ -6,6 +6,7 @@ import { Provider } from 'mobx-react';
 import { Header } from '../Header/Header';
 import { PageProgress } from '../PageProgress/PageProgress';
 import { ShareModal } from '../ShareModal/ShareModal';
+import { AuthModal } from '../AuthModal/AuthModal';
 import { MainContent } from '../MainContent/MainContent';
 import { Footer } from '../Footer/Footer';
 
@@ -13,9 +14,12 @@ import { IndexPageContent } from '../PagesContent/Index/Index';
 import { EventPageContent } from '../PagesContent/Event/Event';
 import { RewardsPageContent } from '../PagesContent/Rewards/Rewards';
 import { NotFoundPageContent } from '../PagesContent/NotFound/NotFound';
+import { Events as PartnerEvents } from '../PagesContent/Partner/Events/Events';
+import { Companies as PartnerCompanies } from '../PagesContent/Partner/Companies/Companies';
 
 import { networkEnvironment } from '../../createRelay';
 import { shareModalStore } from '../../Stores/ShareModalStore';
+import { authModalStore } from '../../Stores/AuthModalStore';
 import { authStore } from '../../Stores/AuthStore';
 import { pageLoadingStore } from '../../Stores/PageLoadingStore';
 
@@ -38,6 +42,7 @@ interface IPageProps {
 const globals = {
     networkEnvironment,
     shareModalStore,
+    authModalStore,
     authStore,
     pageLoadingStore,
 };
@@ -57,11 +62,14 @@ class PurePage extends React.Component<IPageProps> {
                             <Route path='/category/:id' component={IndexPageContent} />
                             <Route path='/event/:id' component={EventPageContent} />
                             <Route path='/rewards/' component={RewardsPageContent} />
+                            <Route path='/partner/events/' component={PartnerEvents} />
+                            <Route path='/partner/companies/' component={PartnerCompanies} />
                             <Route component={NotFoundPageContent} />
                         </Switch>
                     </MainContent>
 
                     <ShareModal shareModalStore={shareModalStore} />
+                    <AuthModal authModalStore={authModalStore} />
 
                     <Footer mix={classes.layoutVertMargin} />
                 </div>

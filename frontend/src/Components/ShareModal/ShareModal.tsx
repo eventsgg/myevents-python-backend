@@ -55,7 +55,7 @@ interface IShareModalProps {
                                 return (
                                     <Grid item xs={12} key={i}>
                                         <Link target="_blank" href={`${icon}`}>
-                                            <img src={icon} />
+                                            <img src={icon} alt="" />
                                         </Link>
                                     </Grid>
                                 )

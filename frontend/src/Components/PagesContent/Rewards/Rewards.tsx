@@ -13,7 +13,7 @@ function RewardsPageContent() {
                     new Array(10).fill({ img: qrCodeImage }).map((item, i) => {
                         return (
                             <Grid key={i} item style={{width: '300px', height: '300px'}}>
-                                <img style={{width: '100%', height: '100%'}} src={item.img} />
+                                <img style={{width: '100%', height: '100%'}} src={item.img} alt="QR код" />
                             </Grid>
                         )
                     })
