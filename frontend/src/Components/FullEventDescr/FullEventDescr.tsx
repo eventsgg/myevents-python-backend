@@ -1,7 +1,7 @@
 import React from 'react';
-import { QueryRenderer } from 'react-relay';
-import graphql from "babel-plugin-relay/macro";
 import { inject } from 'mobx-react';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +13,6 @@ import { IShareModalStore, IPageLoadingStore } from '../../Typings';
 import { Map } from '../Map/Map';
 
 interface IFullEventDescrProps {
-    networkEnvironment?: any;
     eventId: string;
     shareModalStore?: IShareModalStore;
     pageLoadingStore?: IPageLoadingStore;
@@ -22,15 +21,15 @@ interface IFullEventDescrProps {
     }
 }
 
-const query = graphql` query FullEventDescrQuery($eventId: ID!) {
-    event(id: $eventId) {
-        id,
-        title,
-        mainImgMedia {
-            url
+const eventQuery = gql`
+    query events($eventId: Int!) {
+        events(where: {id: {_eq: $eventId}}) {
+            id,
+            img,
+            title
         }
     }
-}`
+`;
 
 const styles = {
     vertMargin: {
@@ -38,7 +37,7 @@ const styles = {
     }
 };
 
-@inject('networkEnvironment', 'shareModalStore', 'pageLoadingStore')
+@inject('shareModalStore', 'pageLoadingStore')
 class PureFullEventDescr extends React.PureComponent<IFullEventDescrProps> {
     showShareModal = (e) => {
         e.preventDefault();
@@ -46,53 +45,51 @@ class PureFullEventDescr extends React.PureComponent<IFullEventDescrProps> {
     }
 
     render() {
-        const { networkEnvironment, eventId, classes, pageLoadingStore } = this.props;
+        const { eventId, classes, pageLoadingStore } = this.props;
 
         return (
-            <QueryRenderer
-                environment={networkEnvironment}
-                query={query}
+            <Query
+                query={eventQuery}
                 variables={{
                     eventId: eventId
                 }}
-                render={
-                    ({ error, props }) => {
-                        if (error) {
-                            return <div>error.message</div>
-                        }
-
-                        if (!props) {
-                            pageLoadingStore!.loading = true;
-                            return null;
-                        }
-
-                        pageLoadingStore!.loading = false;
-
-                        const { event } = props;
-
-                        return (
-                            <>
-                                <Typography variant="h3" paragraph={true}>{event.title}</Typography>
-                                <Typography variant="subtitle1">
-                                    Измайловская, г. Москва, 1-я ул. Измайловского Зверинца, д. 8, эт. 5
-                                </Typography>
-                                <Grid className={classes.vertMargin} container spacing={32}>
-                                    <Grid item>
-                                        <img style={{width: '100%', height: '100%'}} src={event.mainImgMedia.url} alt={event.title} />
-                                    </Grid>
-                                    <Grid item>
-                                        <Button onClick={this.showShareModal} variant="contained" size="large" color="primary">
-                                            Поделиться
-                                            <ShareIcon />
-                                        </Button>
-                                    </Grid>
-                                </Grid>
-                                <Map />
-                            </>
-                        );
+            >
+                {({ loading, error, data }) => {
+                    if (error) {
+                        return (<div>{error.message}</div>);
                     }
-                }
-            />
+
+                    if (loading) {
+                        pageLoadingStore!.loading = true;
+                        return null;
+                    }
+
+                    pageLoadingStore!.loading = false;
+
+                    const event = data.events[0];
+                    
+                    return (
+                        <>
+                            <Typography variant="h3" paragraph={true}>{event.title}</Typography>
+                            <Typography variant="subtitle1">
+                                Измайловская, г. Москва, 1-я ул. Измайловского Зверинца, д. 8, эт. 5
+                                </Typography>
+                            <Grid className={classes.vertMargin} container spacing={32}>
+                                <Grid item>
+                                    <img style={{ width: '100%', height: '100%' }} src={event.img} alt={event.title} />
+                                </Grid>
+                                <Grid item>
+                                    <Button onClick={this.showShareModal} variant="contained" size="large" color="primary">
+                                        Поделиться
+                                        <ShareIcon />
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                            <Map />
+                        </>
+                    );
+                }}
+            </Query>
         );
     }
 }

@@ -2,9 +2,9 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import qrCodeImage from '../../../Assets/qr-code.svg';
+import qrCodeImage from '../../../static/qr-code.svg';
 
-function RewardsPageContent() {
+function RewardsList() {
     return (
         <>
             <Typography variant="h3" paragraph={true}>Промокоды</Typography>
@@ -23,4 +23,4 @@ function RewardsPageContent() {
     );
 }
 
-export { RewardsPageContent };
+export { RewardsList };

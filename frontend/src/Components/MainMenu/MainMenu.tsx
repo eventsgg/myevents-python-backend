@@ -1,5 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import Link from 'next/link';
+import { withRouter, WithRouterProps } from 'next/router';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -32,49 +33,48 @@ const styles = (theme: Theme) => ({
 interface IMenuItem { 
     title: string;
     id: string;
+    alias: string;
 }
 
-interface IMainMenuProps {
+interface IMainMenuProps extends WithRouterProps {
     items: IMenuItem[];
     classes: {
         listRoot: string;
         ListItemRoot: string;
         linkRoot: string;
         activeLinkRoot: string;
-    }
+    };
 }
 
 class MainMenuPresenter extends React.Component<IMainMenuProps> {
-    renderLink = (id, linkProps) => {
-        const { classes } = this.props;
-
-        return (
-            <NavLink
-                activeClassName={classes.activeLinkRoot}
-                className={classes.linkRoot}
-                to={`/category/${id}`}
-                { ...linkProps }
-            />
-        );
-    }
-
     render() {
-        const { classes } = this.props;
+        const { classes, router } = this.props;
 
         return (
             <List classes={{root: classes.listRoot}}>
                 {
-                    this.props.items.map((item, i) => (
-                        <ListItem 
-                            component={this.renderLink.bind(this, item.id)}
-                            classes={{ root: classes.ListItemRoot }}
-                            divider={true}
-                            button
-                            key={i}
-                        >
-                            <ListItemText primary={item.title} />
-                        </ListItem>
-                    ))
+                    this.props.items.map((item, i) => {
+                        const href = `/?category=${item.id}`;
+                        let isActiveLink = false;
+
+                        if (router) {
+                            isActiveLink = href === router.asPath;
+                        }
+
+                        return (
+                            <Link href={href} key={i} >
+                                <ListItem
+                                    classes={{ root: classes.ListItemRoot }}
+                                    className={(isActiveLink ? classes.activeLinkRoot : '')}
+                                    divider={true}
+                                    button
+                                    key={item.id}
+                                >
+                                    <ListItemText primary={item.title} />
+                                </ListItem>
+                            </Link>
+                        );
+                    })
                 }
             </List>
         );
@@ -82,6 +82,6 @@ class MainMenuPresenter extends React.Component<IMainMenuProps> {
     }
 }
 
-const MainMenu = withStyles(styles)(MainMenuPresenter);
+const MainMenu = withRouter(withStyles(styles)(MainMenuPresenter));
 
 export { MainMenu };

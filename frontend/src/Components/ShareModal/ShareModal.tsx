@@ -11,9 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 
-import instagramIcon from '../../Assets/Social-media/instagram.svg';
-import facebookIcon from '../../Assets/Social-media/facebook.svg';
-import twitterIcon from '../../Assets/Social-media/twitter.svg';
+import shareSocials from '../../Configs/shareSocials';
 
 interface IShareModalProps {
     shareModalStore: {
@@ -29,11 +27,6 @@ interface IShareModalProps {
 
     render() {
         const { classes } = this.props;
-        const socialMedia = [
-            instagramIcon,
-            facebookIcon,
-            twitterIcon,
-        ];
 
         return (
             <Dialog
@@ -51,7 +44,7 @@ interface IShareModalProps {
                 <DialogContent>
                     <Grid container spacing={32} wrap="nowrap">
                         {
-                            socialMedia.map((icon, i) => {
+                            shareSocials.map((icon, i) => {
                                 return (
                                     <Grid item xs={12} key={i}>
                                         <Link target="_blank" href={`${icon}`}>

@@ -38,6 +38,6 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src"
+    "src", "pages/index.tsx"
   ]
 }
