@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { observer, inject } from 'mobx-react';
-import graphql from 'babel-plugin-relay/macro';
-import { fragment } from 'relay-compose';
-import { compose } from "recompose";
 
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -25,27 +22,17 @@ interface IEventCardProps {
     };
     card: {
         id: string;
-        mainImgMedia: {
-            url: string;
-        };
+        img: string;
         title: string;
     }
-    shareModalStore: IShareModalStore
+    shareModalStore?: IShareModalStore
 }
-
-const query = graphql`
-    fragment EventCard_card on EventNode {
-        id,
-        title,
-        mainImgMedia {
-            url
-        }
-}`
 
 const styles = {
     root: {
         display: 'block',
-        textDecoration: 'none'
+        textDecoration: 'none',
+        cursor: 'pointer'
     },
     media: {
         height: 0,
@@ -58,44 +45,47 @@ const styles = {
 
 @inject('shareModalStore')
 @observer class PureEventCard extends Component<IEventCardProps> {
-    showShareModal = (e) => {
-        e.preventDefault();
-        this.props.shareModalStore.open = true;
+    constructor(props: IEventCardProps) {
+        super(props);
+
+        this.showShareModal = this.showShareModal.bind(this);
     }
 
-    renderLink = linkProps => <Link to={`/event/${this.props.card.id}`} {...linkProps} />;
+    showShareModal(e) {
+        e.preventDefault();
+        this.props.shareModalStore!.open = true;
+    }
 
     render() {
-        const { classes, card: { mainImgMedia, title } } = this.props;
+        const { classes, card: { id, img, title } } = this.props;
 
         return (
-            <Card component={this.renderLink} className={classes.root}>
+            <Link href={`/deal?id=${id}`}>
+                <Card className={classes.root}>
 
-                <CardMedia className={classes.media} image={mainImgMedia.url} />
+                    <CardMedia className={classes.media} image={img} />
 
-                <CardContent>
-                    <Typography variant={'title'}>{title}</Typography>
-                </CardContent>
+                    <CardContent>
+                        <Typography variant="h6">{title}</Typography>
+                    </CardContent>
 
-                <CardActions className={classes.actions} disableActionSpacing>
+                    <CardActions className={classes.actions} disableActionSpacing>
 
-                    <IconButton aria-label="Добавить в избранное">
-                        <FavoriteIcon />
-                    </IconButton>
+                        <IconButton aria-label="Добавить в избранное">
+                            <FavoriteIcon />
+                        </IconButton>
 
-                    <IconButton onClick={this.showShareModal} aria-label="Поделиться">
-                        <ShareIcon />
-                    </IconButton>
+                        <IconButton onClick={this.showShareModal} aria-label="Поделиться">
+                            <ShareIcon />
+                        </IconButton>
 
-                </CardActions>
-            </Card>
+                    </CardActions>
+                </Card>
+            </Link>
         );
     }
 }
 
-const EventCard = compose(
-    withStyles(styles),
-    fragment(query)
-)(PureEventCard);
+const EventCard = withStyles(styles)(PureEventCard);
 
 export { EventCard };

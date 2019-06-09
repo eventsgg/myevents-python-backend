@@ -1,6 +1,5 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 
 import { Header } from '../Header/Header';
@@ -10,21 +9,19 @@ import { AuthModal } from '../AuthModal/AuthModal';
 import { MainContent } from '../MainContent/MainContent';
 import { Footer } from '../Footer/Footer';
 
-import { IndexPageContent } from '../PagesContent/Index/Index';
-import { EventPageContent } from '../PagesContent/Event/Event';
-import { RewardsPageContent } from '../PagesContent/Rewards/Rewards';
-import { NotFoundPageContent } from '../PagesContent/NotFound/NotFound';
-import { Events as PartnerEvents } from '../PagesContent/Partner/Events/Events';
-import { Companies as PartnerCompanies } from '../PagesContent/Partner/Companies/Companies';
+// import { EventPageContent } from '../PagesContent/Event/Event';
+// import { RewardsPageContent } from '../PagesContent/Rewards/Rewards';
+// import { NotFoundPageContent } from '../PagesContent/NotFound/NotFound';
+// import { Events as PartnerEvents } from '../PagesContent/Partner/Events/Events';
+// import { Companies as PartnerCompanies } from '../PagesContent/Partner/Companies/Companies';
 
-import { networkEnvironment } from '../../createRelay';
 import { shareModalStore } from '../../Stores/ShareModalStore';
 import { authModalStore } from '../../Stores/AuthModalStore';
 import { authStore } from '../../Stores/AuthStore';
 import { pageLoadingStore } from '../../Stores/PageLoadingStore';
 
 const styles = theme => ({
-    pageRoot: {
+    layouteRoot: {
         overflow: 'hidden'
     },
     layoutVertMargin: {
@@ -35,39 +32,29 @@ const styles = theme => ({
     }
 });
 
-interface IPageProps {
+interface ILayoutProps {
     classes: any;
 }
 
 const globals = {
-    networkEnvironment,
     shareModalStore,
     authModalStore,
     authStore,
     pageLoadingStore,
 };
 
-class PurePage extends React.Component<IPageProps> {
+class PureLayout extends React.Component<ILayoutProps> {
     render() {
         var { classes } = this.props;
 
         return (
             <Provider  {...globals}>
-                <div className={classes.pageRoot}>
+                <div className={classes.layoutRoot}>
                     <PageProgress />
                     <Header />
                     <MainContent mix={`${classes.layoutVertMargin} ${classes.layoutHorizMargin}`}>
-                        <Switch>
-                            <Route exact path='/' component={IndexPageContent} />
-                            <Route path='/category/:id' component={IndexPageContent} />
-                            <Route path='/event/:id' component={EventPageContent} />
-                            <Route path='/rewards/' component={RewardsPageContent} />
-                            <Route path='/partner/events/' component={PartnerEvents} />
-                            <Route path='/partner/companies/' component={PartnerCompanies} />
-                            <Route component={NotFoundPageContent} />
-                        </Switch>
+                        {this.props.children}
                     </MainContent>
-
                     <ShareModal shareModalStore={shareModalStore} />
                     <AuthModal authModalStore={authModalStore} />
 
@@ -78,6 +65,6 @@ class PurePage extends React.Component<IPageProps> {
     }
 }
 
-const Page = withStyles(styles)(PurePage);
+const Layout = withStyles(styles)(PureLayout);
 
-export { Page };
+export { Layout };

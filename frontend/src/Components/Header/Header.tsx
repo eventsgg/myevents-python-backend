@@ -1,5 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+import { inject } from 'mobx-react';
+
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,7 +14,7 @@ import { AuthUser } from '../AuthUser/AuthUser';
 import { MainMenu } from '../MainMenu/MainMenu';
 import { Burger } from '../Burger/Burger';
 import { MainDrawer } from '../MainDrawer/MainDrawer';
-import mainMenuData from './MainMenuData.json';
+import { IPageLoadingStore } from '../../Typings';
 import './Header.css';
 
 const styles = {
@@ -22,17 +26,29 @@ const styles = {
     }
 };
 
+const categories = gql`
+    query categories {
+        categories {
+            id,
+            title,
+            alias
+        }
+    }
+`;
+
 interface IHeaderProps {
     classes: {
         grow: string;
         headerShim: string;
     }
+    pageLoadingStore?: IPageLoadingStore;
 }
 
 interface IHeaderState {
     open: boolean;
 }
 
+@inject('pageLoadingStore')
 class PureHeader extends React.PureComponent<IHeaderProps, IHeaderState> {
     constructor(props: IHeaderProps) {
         super(props);
@@ -54,7 +70,7 @@ class PureHeader extends React.PureComponent<IHeaderProps, IHeaderState> {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, pageLoadingStore } = this.props;
         const { open } = this.state;
 
         return (
@@ -69,8 +85,10 @@ class PureHeader extends React.PureComponent<IHeaderProps, IHeaderState> {
                         >
                             {this.renderBurger(this.hideDrawer)}
                         </MainDrawer>
-                        <Typography className={classes.grow} color="inherit" variant="headline">
-                            <Link className="Header-Link" to="/">My Events</Link>
+                        <Typography className={classes.grow} color="inherit" variant="h5">
+                            <Link href="/">
+                                <a className="Header-Link">My Events</a>
+                            </Link>
                         </Typography>
 
                         <SearchBar/>
@@ -81,7 +99,24 @@ class PureHeader extends React.PureComponent<IHeaderProps, IHeaderState> {
 
                 <Toolbar className={this.props.classes.headerShim}/>
 
-                <MainMenu items={mainMenuData.main_menu}/>
+                <Query query={categories}>
+                    {({ loading, error, data }) => {
+                        if (error) {
+                            return (<div>error.message</div>);
+                        }
+
+                        if (loading) {
+                            pageLoadingStore!.loading = true;
+                            return (<div></div>);
+                        }
+
+                        pageLoadingStore!.loading = false;
+
+                        return (
+                            <MainMenu items={data.categories} />
+                        );
+                    }}
+                </Query>
             </>
         )
     }

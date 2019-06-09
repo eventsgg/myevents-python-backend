@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -58,7 +58,7 @@ const MainDrawerPresenter = React.memo(function MainDrawer(props: IMainDrawerPro
         <Drawer open={open} ModalProps={{ onBackdropClick: onOutsideClick }}>
             <div>
                 {props.children}
-                <Typography variant="headline" className={classes.menuHeading}>Меню</Typography>
+                <Typography variant="h6" className={classes.menuHeading}>Меню</Typography>
             </div>
             <Divider />
             <List className={classes.list}>
@@ -67,12 +67,10 @@ const MainDrawerPresenter = React.memo(function MainDrawer(props: IMainDrawerPro
                         let MenuIcon = iconsConfig[menuItem.id];
                         return (
                             <Link
-                                onClick={onMenuClick}
-                                className={classes.link}
-                                to={menuItem.url}
+                                href={menuItem.url}
                                 key={menuItem.id}
                             >
-                                <ListItem button>
+                                <ListItem button onClick={onMenuClick}>
                                     {
                                         MenuIcon ? (
                                             <ListItemIcon>

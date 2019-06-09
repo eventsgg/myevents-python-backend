@@ -13,10 +13,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 import { PartnerAuthForm } from '../PartnerAuthForm/PartnerAuthForm';
-
-import instagramIcon from '../../Assets/Social-media/instagram.svg';
-import facebookIcon from '../../Assets/Social-media/facebook.svg';
-import twitterIcon from '../../Assets/Social-media/twitter.svg';
+import shareSocials from '../../Configs/shareSocials';
 
 interface IAuthModalProps {
     authModalStore: {
@@ -91,11 +88,6 @@ interface IAuthModalState {
     }
 
     renderSocials(props: { active: boolean, classes: { hidden: string } }) {
-        const socialMedia = [
-            instagramIcon,
-            facebookIcon,
-            twitterIcon,
-        ];
         const { active, classes } = props;
 
         return (
@@ -105,7 +97,7 @@ interface IAuthModalState {
                 wrap="nowrap"
                 classes={{ container: active ? '' : classes.hidden }}
             >
-                {socialMedia.map((icon, i) => (
+                {shareSocials.map((icon, i) => (
                     <Grid item xs={12} key={i}>
                         <Link target="_blank" href={`${icon}`}>
                             <img src={icon} alt="" />
