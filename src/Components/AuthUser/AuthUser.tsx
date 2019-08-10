@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 import { AuthBtn } from '../AuthBtn/AuthBtn';
 import { AuthIcon } from '../AuthIcon/AuthIcon';

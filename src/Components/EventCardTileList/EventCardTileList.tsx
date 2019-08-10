@@ -48,7 +48,7 @@ class PureEventCardTileList extends Component<IEventCardTileListProps> {
                     pageLoadingStore!.loading = false;
 
                     return (
-                        <Grid container spacing={32}>
+                        <Grid container spacing={8}>
                             {
                                 data.events.map((event, i) => {
                                     return (

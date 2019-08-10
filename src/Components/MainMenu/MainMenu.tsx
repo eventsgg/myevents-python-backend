@@ -1,13 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { withRouter, WithRouterProps } from 'next/router';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
-const styles = (theme: Theme) => ({
+const styles = (theme) => ({
     listRoot: {
         display: 'flex',
         paddingTop: 0,

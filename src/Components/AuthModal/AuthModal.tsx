@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -93,7 +93,7 @@ interface IAuthModalState {
         return (
             <Grid
                 container
-                spacing={32}
+                spacing={8}
                 wrap="nowrap"
                 classes={{ container: active ? '' : classes.hidden }}
             >
@@ -111,14 +111,14 @@ interface IAuthModalState {
 
 const AuthModal = withStyles(theme => ({
     titleRoot: {
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing(2),
         margin: 0,
         marginRight: 50
     },
     closeButtonRoot: {
         position: 'absolute',
-        right: theme.spacing.unit,
-        top: theme.spacing.unit,
+        right: theme.spacing(),
+        top: theme.spacing(),
         color: theme.palette.grey[500],
     }
 }))(PureAuthModal);

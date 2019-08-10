@@ -8,7 +8,7 @@ function RewardsList() {
     return (
         <>
             <Typography variant="h3" paragraph={true}>Промокоды</Typography>
-            <Grid container spacing={32}>
+            <Grid container spacing={8}>
                 {
                     new Array(10).fill({ img: qrCodeImage }).map((item, i) => {
                         return (

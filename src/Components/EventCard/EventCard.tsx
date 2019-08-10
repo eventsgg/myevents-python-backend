@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Link from 'next/link';
 import { observer, inject } from 'mobx-react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -69,7 +69,7 @@ const styles = {
                         <Typography variant="h6">{title}</Typography>
                     </CardContent>
 
-                    <CardActions className={classes.actions} disableActionSpacing>
+                    <CardActions className={classes.actions} disableSpacing>
 
                         <IconButton aria-label="Добавить в избранное">
                             <FavoriteIcon />

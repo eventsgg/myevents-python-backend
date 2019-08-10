@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { IPageLoadingStore } from '../../Typings';

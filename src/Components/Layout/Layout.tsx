@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import { Provider } from 'mobx-react';
 
 import { Header } from '../Header/Header';

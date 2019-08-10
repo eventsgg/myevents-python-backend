@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, FormikProps } from "formik";
 import * as Yup from 'yup';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from '@material-ui/core/Grid';
@@ -158,7 +158,7 @@ class PartnerAuthFormPure extends React.PureComponent<IPartnerAuthFormPureProps>
                             <form onSubmit={() => { }}>
                                 <Grid
                                     container
-                                    spacing={16}
+                                    spacing={6}
                                     justify="space-around"
                                     classes={{container: classes.container}}
                                 >

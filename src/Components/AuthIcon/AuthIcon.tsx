@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject } from 'mobx-react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Avatar from '@material-ui/core/Avatar';
 import Popper from '@material-ui/core/Popper';

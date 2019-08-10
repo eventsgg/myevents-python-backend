@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -42,7 +42,7 @@ interface IShareModalProps {
                 </DialogTitle>
 
                 <DialogContent>
-                    <Grid container spacing={32} wrap="nowrap">
+                    <Grid container spacing={8} wrap="nowrap">
                         {
                             shareSocials.map((icon, i) => {
                                 return (
@@ -65,14 +65,14 @@ interface IShareModalProps {
 
 const ShareModal = withStyles(theme => ({
     titleRoot: {
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing(2),
         margin: 0,
         marginRight: 50
     },
     closeButtonRoot: {
         position: 'absolute',
-        right: theme.spacing.unit,
-        top: theme.spacing.unit,
+        right: theme.spacing(),
+        top: theme.spacing(),
         color: theme.palette.grey[500],
     }
 }))(PureShareModal);
